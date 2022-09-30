@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* font-family: "Montserrat", sans-serif; */
+    font-family: lato, sans-serif;
+    scroll-behavior: smooth;
+    font-style: var(--black);
+}
+
+.montserrat{
+    font-family: "Montserrat", sans-serif;
+}
+
+.playfair{
+    font-family: playfair-display,
+    serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.fw-3{
+    font-weight: 300;
+}
+
+.fw-4{
+    font-weight: 400;
+}
+
+.fw-5{
+    font-weight: 500;
+}
+
+.fw-6{
+    font-weight: 600;
+}
+
+.fw-7{
+    font-weight: 700;
+}
+
+:root {
+    --green: #96a535;
+    --orange: #e16f29;
+    --yellow: #ebad39;
+    --beige: #ede3d3;
+    --black: #141402;
+    --white: 245, 245, 245;
+    --maintransition: all 0.3s linear;
+    --gradient: linear-gradient(60deg, rgba(233, 174, 5, 1) 15%, rgba(221, 114, 15, 1) 50%, rgba(152, 166, 12, 1) 85%);
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+.card:hover,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: rgba(20, 20, 2, 0.1);
+    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2);
+    outline: none;
+    transition: var(--maintransition);
+}
+
+.center {
+    text-align: center;
+}
+
+.ilb {
+    display: inline-block;
+}
+
+/* Carousel */
+.carousel {
+    width: 25rem;
+    height: 25rem;
+    background-size: contain;
+    align-self: center;
+    transition: var(--maintransition);
+}
+
+/* Background form*/
+.form, .active {
+    background-color: rgba(var(--white), 0.85)!important;
+    border-radius: 0.25rem;
+    border: 0!important;
+    /*box-shadow: 0px 10px 10px 0px rgba(47, 47, 47, 0.075);*/
+}
+
+/* Links */
+a {
+    color: var(--orange)!important;
+    text-decoration: none!important;
+}
+a:hover,
+a:active {
+    color: var(--yellow) !important;
+    transition: var(--maintransition) !important;
+}
+
+.footer:hover,
+.footer:active{
+    opacity: 0.7;
+    transition: var(--maintransition)!important;
+}
+
+/* Buttons and Span*/
+.abutton,
+button,
+.field span,
+input[type="submit"] {
+    background-color:#96a535 !important;
+    border: none!important;
+    outline: none!important;
+    box-shadow: none!important;
+}
+
+
+.yellow,
+.yellow:active,
+.yellow:hover{
+    background-color: var(--yellow) !important;
+}
+
+.yellow:active,
+.yellow:hover{
+    opacity: 0.7;
+    transition: var(--maintransition);
+}
+
+.abutton:hover, 
+.abutton:active,
+button:hover,
+button:active,
+.field span:hover,
+.field span:active,
+input[type="submit"]:hover,
+input[type="submit"]:active{
+    opacity: 0.7;
+    transition: var(--maintransition);
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.field span:last-child {
+    display: none;
+}
+
+.field {
+    display: flex;
+}
+
+/* Size for brand */
+nav .navbar-brand {
+    font-size: xxx-large;
+    font-weight: 700;
+}
+
+/* Waving hand emoji css from: https: //jarv.is/notes/css-waving-hand-emoji/*/
+.wave{
+    animation-name: wave-animation;
+    animation-duration: 2.5s;
+    transform-origin: 70% 70%;
+    display: inline-block;
+}
+@keyframes wave-animation {
+    0% {
+        transform: rotate(0.0deg)
+    }
+    10% {
+        transform: rotate(14.0deg)
+    }
+    20% {
+        transform: rotate(-8.0deg)
+    }
+    30% {
+        transform: rotate(14.0deg)
+    }
+    40% {
+        transform: rotate(-4.0deg)
+    }
+    50% {
+        transform: rotate(10.0deg)
+    }
+    60% {
+        transform: rotate(0.0deg)
+    }
+    100% {
+        transform: rotate(0.0deg)
+    }
+}
+
+.noto{
+    font-family: 'Noto Emoji';
+}
+
+.hide{
+    display: none;
+}
+
+.black{
+    color: var(--black);
+}
+
+#btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+}

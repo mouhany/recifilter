@@ -1,0 +1,185 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Bookmarks
+{% endblock %}
+
+{% block main %}
+    <!-- Headline -->
+    {% if saved_recipes_list %}
+        <div class="px-5" style="text-align: left!important;">
+            <p class="mb-3 fs-5 fw-4">Bookmarked recipes:</p>
+        </div>
+    {% else %}
+    {% endif %}
+
+    <!-- Result -->
+    <div class="mx-5 form px-2 py-5">
+        {% if not saved_recipes_list %}
+        <!-- Handle error -->
+        <div class="text-center">
+            <div class="fs-1 fw-7 text-center mb-3">Nothing here!</div>
+            <div class="fs-5">You haven't bookmarked any recipe so far.</div>
+            <div class="fs-5 mb-5">Start browsing to have a list of your favorite recipes!</div>
+            <a href="/" class="fw-6 fs-4">Start now!</a>
+        </div>
+        {% else %}
+        <div class="d-flex flex-wrap justify-content-evenly">
+            {% for recipe in saved_recipes_list %}
+                <!-- Cards -->
+                <div type="button" class="position-relative border-0 card mb-5" style="width: 14rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
+                    <!-- Card Image -->
+                    <img class="card-img-top" src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}"> 
+                    <!-- Card Body -->
+                    <div class="card-body" style="text-align: left!important;">
+                        <!-- Title -->
+                        <div class="h5 lh-sm card-text text-capitalize mb-2">{{ recipe['label'] }}</div>
+                    </div>
+                </div>
+
+                <!-- Modals -->
+                <div class="modal" id="recipe{{ loop.index }}">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body p-5">
+                                <div class="row mb-3">
+                                    <!-- Image, Total Time, & Calories -->
+                                    <div class="col-auto px-4">
+                                        <!-- Image -->
+                                        <div class="mb-3">
+                                            <img src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}">
+                                        </div>
+                                        <!-- Total Time and Calories -->
+                                        <div class="small mb-5 lh-lg d-flex flex-wrap justify-content-between">
+                                            <!-- Time -->
+                                            <small>
+                                                <span class="bi bi-stopwatch"></span>
+                                                <!-- Handle error if no data of totalTime -->
+                                                {% if recipe['totaltime']|float > 0.0 %}
+                                                <span>{{ (recipe['totaltime'])|int }} min.</span>
+                                                {% else %}
+                                                No data.
+                                                {% endif %}
+                                            </small>
+                                            <!-- Calories -->
+                                            <small>
+                                                <span class="bi bi-fire"></span>
+                                                <span>{{ (recipe['calories'])|int }} cal.</span>
+                                            </small>
+                                        </div>
+                                        <!-- View recipe -->
+                                        <div class="mb-5 text-center">
+                                            <a href="{{ recipe['url'] }}" target=”_blank”><button type="button" class=" yellow px-5 btn btn-primary">View Full
+                                                Recipe <span class="bi bi-box-arrow-up-right"></span> </button></a>
+                                        </div>
+                                    </div>
+                                    <!-- Title, Source, & Ingredients -->
+                                    <div class="col px-4">
+                                        <!-- Title -->
+                                        <div class="h3 pb-2 lh-sm text-capitalize">{{ recipe['label'] }}</div>
+                                        <!-- Source -->
+                                        <div class="small mb-3">
+                                            By
+                                            <a href="{{ recipe['url'] }}" target=”_blank”>
+                                                <span>{{ recipe['source'] }}</span>
+                                            </a>
+                                        </div>
+                                        <!-- Ingredients -->
+                                        <div class="mb-3">
+                                            <div class="lh-sm text-muted mb-2">Ingredients:</div>
+                                            {% set list = recipe['ingredientlines'].split(", ") %}
+                                            <small class="lh-1 text-lowercase">
+                                                <ul class="list-group border-top border-bottom list-group-flush mb-3">
+                                                    {% for line in list %}
+                                                    <li class="list-group-item p-1">{{ line|replace("'", "") }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Tags -->
+                                <div class="row mb-3 px-4">
+                                    <div class="col-12 px-0">
+                                        <div class="lh-base text-muted py-2">Show Tags
+                                            <a href="javascript:void(0)" id="tag"
+                                                class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                                        </div>
+                                        <div class="mb-4 py-2 border-top border-bottom hide">
+                                            <!-- Dish Tags -->
+                                            <div class="mb-1">
+                                                {% set list = recipe['dishtype'].split("'") %}
+                                                <div class="lh-base small text-muted">Dish Type:</div>
+                                                <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
+                                                    {% for dish in list %}
+                                                        {% if dish in dishtype %}
+                                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </small>
+                                            </div>
+                                            <!-- Diet Tags -->
+                                            <div class="mb-1">
+                                                {% set list = recipe['dietlabels'].split(",") %}
+                                                <div class="lh-sm small text-muted">Diet Type:</div>
+                                                <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
+                                                    {% for diet in list|sort %}
+                                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ diet|replace("'", "") }}</small>
+                                                    {% endfor %}
+                                                </small>
+                                            </div>
+                                            <!-- Health Tags -->
+                                            <div class="mb-1">
+                                                {% set list = recipe['healthlabels'].split(",") %}
+                                                <div class="lh-sm small text-muted">Allergy / Restriction:</div>
+                                                <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
+                                                    {% for health in list|sort %}
+                                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ health|replace("'", "") }}</small>
+                                                    {% endfor %}
+                                                </small>
+                                            </div>
+                                            <!-- Cuisine Tags -->
+                                            <div class="mb-1">
+                                                {% set list = recipe['cuisinetype'].split(",") %}
+                                                <div class="lh-sm small text-muted">Cuisine Type:</div>
+                                                <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
+                                                    {% for cuisine in list|sort %}
+                                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine|replace("'", "") }}</small>
+                                                    {% endfor %}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Remove -->
+                                <div class="row center">
+                                    <div class="col">
+                                        <form action="/remove" method="POST">
+                                            <input name="link" type="hidden" value="{{ recipe['link'] }}">
+                                            <input type="submit" name="remove" id="remove" value="Remove" class="px-5 btn btn-primary" onClick="this.form.submit(); this.parent().parent().parent().remove();" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+    <script>
+        // Toggle visibility
+        $(".toggler").on("click", function () {
+            var $this = $(this);
+            $this.parent().next().slideToggle();
+            $this.toggleClass('bi-chevron-up bi-chevron-down');
+        })
+    </script>
+{% endblock%}

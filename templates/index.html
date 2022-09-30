@@ -1,0 +1,230 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <!-- Headline -->
+    <div class="px-5 my-3" style="text-align: left!important;">
+        <h2 class="mb-3 fs-2 fw-6" style="text-transform:capitalize;">hi, {{ name[0]["name"] }} <span class="wave noto">👋</span></h2>
+        <h5 class="mb-3 fs-5 fw-4">Let's get cooking good looking!</h5>
+    </div>
+    <!-- Get input -->
+    <div class="mx-5 form p-5">
+        <form action="/result" method="GET" autocomplete="off">
+            <!-- Ingredients -->
+            <div class="mb-5" id="ingredientsWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Enter the first query or ingredient before adding more.</p>
+                <div class="px-5 field mb-3">
+                    <input type="text" class="border-0 me-2 form-control form-control-sm" name="ingredients" id="ingredients" 
+                        placeholder="Enter query or ingredient" autofocus />
+                    <span onclick="addField(this)" class=" btn px-3 btn-primary">+</span>
+                    <span onclick="removeField(this)" class=" btn px-3 btn-primary">−</span>
+                </div>
+            </div>
+            <!-- Dish Type  -->
+            <div class="mb-5" id="dishTypeWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Dish Type<span class="ms-1 small text-muted">(optional)</span> 
+                    <a href="javascript:void(0)" id="dish" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                </p>
+                <div id="dishListWrapper" class="hide">
+                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
+                        {% for dish in dishtype %}
+                        <div class="form-check px-4 py-1">
+                            <input class="border-0 form-check-input" type="checkbox" name="dishType" value="{{ dish }}"
+                                id="{{ dish }}">
+                            <label class="form-check-label" for="{{ dish }}">{{ dishtype[dish] }}</label>
+                        </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+            <!-- Diet Labels  -->
+            <div class="mb-5" id="dietLabelsWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Diet Labels<span class="ms-1 small text-muted">(optional)</span>
+                    <a href="javascript:void(0)" id="diet" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                </p>
+                <div id="dietListWrapper" class="hide">
+                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
+                        {% for diet in dietlabels %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="dietLabels" value="{{ diet }}" id="{{ diet }}">
+                                <label class="form-check-label" for="{{ diet }}">{{ dietlabels[diet] }}</label>
+                            </div>
+                        {% endfor%}
+                    </div>
+                </div>
+            </div>
+            <!-- Health Labels  -->
+            <div class="mb-5" id="healthLabelsWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Allergies / Restrictions<span class="ms-1 small text-muted">(optional)</span>
+                    <a href="javascript:void(0)" id="health" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                </p>
+                <div id="healthListWrapper" class="hide">
+                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
+                        <div class="flex-column">
+                            {% for health in healthlabels1 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
+                                    id="{{ health }}">
+                                <label class="form-check-label" for="{{ health }}">{{ healthlabels1[health] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex-column">
+                            {% for health in healthlabels2 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
+                                    id="{{ health }}">
+                                <label class="form-check-label" for="{{ health }}">{{ healthlabels2[health] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex-column">
+                            {% for health in healthlabels3 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
+                                    id="{{ health }}">
+                                <label class="form-check-label" for="{{ health }}">{{ healthlabels3[health] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Cuisine Type Labels  -->
+            <div class="mb-5" id="cuisineTypeWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Cuisine Type<span class="ms-1 small text-muted">(optional)</span>
+                    <a href="javascript:void(0)" id="cuisine" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                </p>
+                <div id="cuisineListWrapper" class="hide">
+                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
+                        <div class="flex-column">
+                            {% for cuisine in cuisinetype1 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{cuisine}}">
+                                <label class="form-check-label" for="{{ cuisine }}">{{ cuisinetype1[cuisine] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex-column">
+                            {% for cuisine in cuisinetype2 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{ cuisine }}2">
+                                <label class="form-check-label" for="{{ cuisine }}2">{{ cuisinetype2[cuisine] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="flex-column">
+                            {% for cuisine in cuisinetype3 %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{ cuisine }}3">
+                                <label class="form-check-label" for="{{ cuisine }}3">{{ cuisinetype3[cuisine] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Submit -->
+            <div class="text-center">
+                <input type="submit" id="search" value="Show Recipes" class="px-5 py-3 btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+
+
+{% block script%}
+    <script>
+        let form = document.forms[0];
+        let ingredientsWrapper = document.getElementById("ingredientsWrapper");
+
+        // Add text field
+        function addField(element){
+            if (element.previousElementSibling.value.trim() === "") {
+                return false;
+            }
+
+            let div = document.createElement("div");
+            div.setAttribute("class", "px-5 field mb-3");
+
+            let input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("class", "border-0 me-2 form-control form-control-sm");
+            input.setAttribute("name", "ingredients");
+            input.setAttribute("id", "ingredients")
+            input.setAttribute("placeholder", "Enter query or ingredient");
+
+            let plus = document.createElement("span");
+            plus.setAttribute("onclick", "addField(this)");
+            plus.setAttribute("class", " btn px-3 btn-primary");
+            let plusText = document.createTextNode("+");
+            plus.appendChild(plusText);
+
+            let minus = document.createElement("span");
+            minus.setAttribute("onclick", "removeField(this)");
+            minus.setAttribute("class", " btn px-3 btn-primary");
+            let minusText = document.createTextNode("−");
+            minus.appendChild(minusText);
+
+            ingredientsWrapper.insertBefore(div, ingredientsWrapper.lastChild);
+            div.appendChild(input).focus();
+            div.appendChild(plus);
+            div.appendChild(minus);
+
+            element.nextElementSibling.style.display = "block";
+
+            element.style.display = "none";
+        }
+
+        // Remove text field
+        function removeField(element){
+            element.parentElement.remove();
+        }
+
+        // Toggle visibility tags
+        $(".toggler").on("click", function(){
+            var $this = $(this);
+            $this.parent().next().slideToggle();
+            $this.toggleClass('bi-chevron-up bi-chevron-down');
+        })
+
+        // Submit
+        //form.onsubmit = function(event){
+            //event.preventDefault();
+            
+            //let myFormData = new FormData(form);
+            //let formDataObject = Object.fromEntries(myFormData.entries());
+
+            //formDataObject.dietLabels = myFormData.getAll('dietLabels');
+            //formDataObject.healthLabels = myFormData.getAll('healthLabels');
+            //formDataObject.cuisineType = myFormData.getAll('cuisineType');
+            //formDataObject.ingredients = myFormData.getAll('ingredients');
+            
+
+            //myFormData.forEach(function(value) {
+                //if (value.trim() == "") { // If user add input field but not typed in anything
+                    //formDataObject.ingredients.pop(value); // Do not include that field in the array
+                //}
+            //});
+
+            //console.log(formDataObject); // Object { ingredients: (2) […], dietLabels: (1) […], healthLabels: (2) […] }
+
+            //const myJSON = JSON.stringify(formDataObject);
+
+            //$.ajax({
+                //url: '/result',
+                //type: 'POST',
+                //contentType: 'application/json',
+                //data: JSON.stringify(formDataObject),
+                //success: function(response){document.write(response);}
+            //});
+
+            //console.log(myJSON); // String { "ingredients": ["banana", "cheese"], "dietLabels": ["balanced"], "healthLabels": ["kidney-friendly", "low-sugar"] }
+
+            //}
+    </script>
+{% endblock %}

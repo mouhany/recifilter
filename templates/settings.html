@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Setting
+{% endblock %}
+
+{% block main %}
+    <!-- Headline -->
+    <div class="px-5" style="text-align: left!important;">
+        <p class="mb-3 fs-5 fw-4">Update your account information.</p>
+    </div>
+    <!-- Contents -->
+    <div class="vtabs mx-5">
+        <div class="row mx-0">
+            <!-- Tabs -->
+            <div class="col-md-3 px-0 pe-3">
+                <ul class="nav nav-tabs left-tabs border-0 rounded-left" role="tablist">
+                    <!-- Name Tab -->
+                    <li class="nav-item" role="presentation">
+                        <div id="name-left-tab" 
+                        {% if message1 %} 
+                            class="p-3 tab-clickable active" 
+                        {% else %}
+                            class="p-3 tab-clickable"
+                        {% endif %}
+                        role="tab" data-bs-toggle="tab"
+                            data-bs-target="#name-left" aria-controls="name-left" aria-selected="true">
+                            Edit Name
+                        </div>
+                    </li>
+                    <!-- Username Tab -->
+                    <li class="nav-item" role="presentation">
+                        <div id="username-left-tab"
+                        {% if message2 %} 
+                            class="p-3 tab-clickable active" 
+                        {% else %} 
+                            class="p-3 tab-clickable"
+                        {% endif %}
+                        role="tab" data-bs-toggle="tab"
+                            data-bs-target="#username-left" aria-controls="username-left" aria-selected="false">
+                            Change Username
+                        </div>
+                    </li>
+                    <!-- Password Tab -->
+                    <li class="nav-item" role="presentation">
+                        <div id="password-left-tab"
+                        {% if message3 %} 
+                            class="p-3 tab-clickable active" 
+                        {% else %} 
+                            class="p-3 tab-clickable"
+                        {% endif %}
+                        role="tab" data-bs-toggle="tab"
+                            data-bs-target="#password-left" aria-controls="password-left"
+                            aria-selected="false">
+                            Change Password
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Tab Contents -->
+            <div class="p-5 col-md-9 form">
+                <form action="/settings" method="POST" autocomplete="off">
+                    <div class="p-0 container">
+                        <div id="accordion-left-tabs" class="p-0 tab-content accordion">
+                            <!-- Name -->
+                            <div id="name-left" 
+                            {% if message1 %} 
+                                class="tab-pane show active accordion-item" 
+                            {% else %} 
+                                class="tab-pane fade accordion-item"
+                            {% endif %}
+                            role="tabpanel">
+                                <div class="accordion-header" role="tab">
+                                    <button class="accordion-button collapsed" type="button" role="button"
+                                        data-bs-toggle="collapse" data-bs-target="#name-left-article" aria-expanded="true"
+                                        aria-controls="name-left-article">
+                                        Edit Name
+                                    </button>
+                                </div>
+                                <article id="name-left-article" class="p-0 accordion-body accordion-collapse collapse"
+                                    data-bs-parent="#accordion-left-tabs" aria-labelledby="name-left-tab">
+                                    <div class="h6 lh-base mb-3">Current name:</div>
+                                    <div class="h5 lh-lg mb-3">{{ currentname }}</div>
+                                    <section>
+                                        <div class="small d-flex flex-wrap justify-content-between mb-3">
+                                            <input type="text" class="mb-3 border-0 form-control form-control-sm" name="change_name" id="change_name" placeholder="Enter new name" autofocus/>
+                                        </div>
+                                    </section>
+                                </article>
+                                <!-- Validation -->
+                                <p class="mb-4 small fw-4 text-muted validation">{{ message1 }}</p>
+                                <div class="text-center mb-3">
+                                    <input type="submit" id="save_name" value="Save Changes" class="btn btn-primary px-5"/>
+                                </div>
+                            </div>
+                            <!-- Username -->
+                            <div id="username-left"
+                            {% if message2 %} 
+                                class="tab-pane show active accordion-item" 
+                            {% else %} 
+                                class="tab-pane fade accordion-item"
+                            {% endif %}
+                            role="tabpanel">
+                                <div class="accordion-header" role="tab">
+                                    <button class="accordion-button collapsed" type="button" role="button"
+                                        data-bs-toggle="collapse" data-bs-target="#username-left-article" aria-expanded="false"
+                                        aria-controls="username-left-article">
+                                        Current username:
+                                    </button>
+                                </div>
+                                <article id="username-left-article" class="p-0 accordion-body accordion-collapse collapse"
+                                    data-bs-parent="#accordion-left-tabs" aria-labelledby="username-left-tab">
+                                    <div class="h6 lh-base mb-3">Current username:</div>
+                                    <div class="h5 lh-lg mb-3">{{ currentusername }}</div>
+                                    <section>
+                                        <div class="small d-flex flex-wrap justify-content-between mb-3">
+                                            <input type="text" class="mb-3 border-0 form-control form-control-sm" name="change_username" id="change_username" placeholder="Enter new username"/>
+                                        </div>
+                                    </section>
+                                </article>
+                                <!-- Validation -->
+                                <p class="mb-4 small fw-4 text-muted validation">{{ message2 }}</p>
+                                <div class="text-center mb-3">
+                                    <input type="submit" id="save_username" value="Save Changes" class="btn btn-primary px-5" />
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div id="password-left"
+                            {% if message3 %} 
+                                class="tab-pane show active accordion-item" 
+                            {% else %} 
+                                class="tab-pane fade accordion-item"
+                            {% endif %}
+                            role="tabpanel">
+                                <div class="accordion-header" role="tab">
+                                    <button class="accordion-button collapsed" type="button" role="button"
+                                        data-bs-toggle="collapse" data-bs-target="#password-left-article"
+                                        aria-expanded="false" aria-controls="password-left-article">
+                                        Change Password
+                                    </button>
+                                </div>
+                                <article id="password-left-article"
+                                    class="p-0 accordion-body accordion-collapse collapse" data-bs-parent="#accordion-left-tabs"
+                                    aria-labelledby="password-left-tab">
+                                    <section>
+                                        <div class="small d-flex flex-wrap justify-content-between mb-3">
+                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="currentpassword" id="password" placeholder="Enter current password"/>
+                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="newpassword" id="new_password"placeholder="Enter new password" />
+                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="confirmpassword" id="confirm_new_password" placeholder="Confirm new password" />
+                                        </div>
+                                    </section>
+                                </article>
+                                <!-- Validation -->
+                                <p class="mb-4 small fw-4 text-muted validation">{{ message3 }}</p>
+                                <div class="text-center mb-3">
+                                    <input type="submit" id="save_password" value="Save Changes" class="btn btn-primary px-5" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block script%}{% endblock %}

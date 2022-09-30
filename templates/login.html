@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <div class="container h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <!-- Carousel photos -->
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img name="carousel" class="carousel">
+            </div>
+            <!-- Login form -->
+            <div class="form center p-5 col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form action="/login" method="post">
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <input type="text" autofocus autocomplete="off" id="username" name="username" class="inp form-control"
+                        placeholder="Username" required/>
+                    </div>
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <input type="password" id="password" name="password" class="inp form-control"
+                        placeholder="Password" required />
+                    </div>
+                    <!-- Login -->
+                    <div class="text-center mb-3">
+                        <input type="submit" id="login" value="Log In" class="btn btn-primary px-5" disabled="disabled"/>
+                    </div>
+                    <!-- Validation-->
+                    <p id="validation" class="mb-3 small fw-light text-muted">{{ message }}</p>
+                    <!-- Register -->
+                    <p class="small fw-normal mb-0">Don't have an account? <a href="/register"
+                        class="fw-6">Register!</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+    <script>
+        let i = 0;
+        let images = [];
+        let time = 1000;
+
+        images[0] = "./static/images/1.jpg";
+        images[1] = "./static/images/2.jpg";
+        images[2] = "./static/images/3.jpg";
+        images[3] = "./static/images/4.jpg";
+        images[4] = "./static/images/5.jpg";
+        images[5] = "./static/images/6.jpg";
+        images[6] = "./static/images/7.jpg";
+        images[7] = "./static/images/8.jpg";
+        images[8] = "./static/images/9.jpg";
+        images[9] = "./static/images/10.jpg";
+        images[10] = "./static/images/11.jpg";
+
+        // Carousel photos
+        function change() {
+            document.carousel.src = images[i];
+            if (i < images.length - 1) {
+                i++;
+            } else {
+                i = 0;
+            }
+
+            setTimeout("change()", time);
+        }
+
+        window.onload = change;
+
+        // Disable button if field empty
+        (function () {
+            $('.inp').keyup(function () {
+
+                var empty = false;
+                $('.inp').each(function () {
+                    if ($(this).val() == '') {
+                        empty = true;
+                    }
+                });
+
+                if (empty) {
+                    $('#login').attr('disabled', 'disabled');
+                } else {
+                    $('#login').removeAttr('disabled');
+                }
+            });
+        })()
+
+    </script>
+{% endblock %}
