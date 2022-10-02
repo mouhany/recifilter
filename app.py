@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required, lookup, readable_list
 
 
-# From CS50 Finance ##################################################################
+# From CS50 Finance #######################################################
 
 
 # Configure app
@@ -29,6 +29,8 @@ db = SQL("sqlite:///recifilter.db")
 # Make sure API key is set
 if not os.environ.get("API_KEY"):
     raise RuntimeError("API_KEY not set")
+elif not os.environ.get("API_ID"):
+    raise RuntimeError("API_ID not set")
 
 
 @app.after_request
@@ -40,7 +42,7 @@ def after_request(response):
     return response
 
 
-# Dictionaries ##################################################################
+# Dictionaries ############################################################
 
 
 dietlabels = {
@@ -51,45 +53,6 @@ dietlabels = {
     'low-fat': 'Low Fat',
     'low-sodium': 'Low Sodium'
 }
-
-# healthlabels = {
-#     'alcohol-cocktail': 'Alcohol-Cocktail',
-#     'alcohol-free': 'Alcohol-Free',
-#     'celery-free': 'Celery-Free',
-#     'crustacean-free': 'Crustacean-Free',
-#     'dairy-free': 'Dairy-Free',
-#     'DASH': 'DASH',
-#     'egg-free': 'Egg-Free',
-#     'fish-free': 'Fish-Free',
-#     'fodmap-free': 'FODMAP-Free',
-#     'gluten-free': 'Gluten-Free',
-#     'immuno-supportive': 'Immuno-Supportive',
-#     'keto-friendly': 'Keto-Friendly',
-#     'kidney-friendly': 'Kidney-Friendly',
-#     'kosher': 'Kosher',
-#     'low-potassium': 'Low-Potassium',
-#     'low-sugar': 'Low-Sugar',
-#     'lupine-free': 'Lupine-Free',
-#     'Mediterranean': 'Mediterranean',
-#     'mollusk-free': 'Mollusk-Free',
-#     'mustard-free': 'Mustard-Free',
-#     'No-oil-added': 'No oil added',
-#     'paleo': 'Paleo',
-#     'peanut-free': 'Peanut-Free',
-#     'pescatarian': 'Pescatarian',
-#     'pork-free': 'Pork-Free',
-#     'red-meat-free': 'Red-Meat-Free',
-#     'sesame-free': 'Sesame-Free',
-#     'shellfish-free': 'Shellfish-Free',
-#     'soy-free': 'Soy-Free',
-#     'sugar-free': 'Sugar-Free',
-#     'sugar-conscious': 'Sugar-Conscious',
-#     'sulfite-free': 'Sulfite-Free',
-#     'tree-nut-free': 'Tree-Nut-Free',
-#     'vegan': 'Vegan',
-#     'vegetarian': 'Vegetarian',
-#     'wheat-free': 'Wheat-Free'
-# }
 
 healthlabels1 = {
     'alcohol-cocktail': 'Alcohol-Cocktail',
@@ -210,71 +173,70 @@ def index():
                            dietlabels=dietlabels, healthlabels1=healthlabels1, healthlabels2=healthlabels2, healthlabels3=healthlabels3, cuisinetype1=cuisinetype1, cuisinetype2=cuisinetype2, cuisinetype3=cuisinetype3, dishtype=dishtype)
 
 
-@app.route("/result", methods=["GET"])
+@app.route("/result")
 @login_required
 def result():
-    if request.method == "GET":
-        # Get all input values including the empty ones
-        i_list = request.args.getlist("ingredients")
-        # List comprehension to remove empty value
-        ingredients_list = [i.lower().strip() for i in (filter(None, i_list))]
-        dish_list = request.args.getlist("dishType")
-        diet_list = request.args.getlist("dietLabels")
-        health_list = request.args.getlist("healthLabels")
-        cuisine_list = request.args.getlist("cuisineType")
+    # Get all input values including the empty ones
+    i_list = request.args.getlist("ingredients")
+    # Remove empty values with list comprehension
+    ingredients_list = [i.lower().strip() for i in (filter(None, i_list))]
+    dish_list = request.args.getlist("dishType")
+    diet_list = request.args.getlist("dietLabels")
+    health_list = request.args.getlist("healthLabels")
+    cuisine_list = request.args.getlist("cuisineType")
 
-        # Format list to comma separated string for API request
-        ingredients = str((','.join(ingredients_list)))
+    # Format list to comma-separated string
+    ingredients = str((','.join(ingredients_list)))
 
-        # Make ingredients readable for result page's headline
-        li = list(ingredients.split(','))
-        listofingredients = readable_list(li)
+    # Make ingredients readable for result page's headline
+    li = list(ingredients.split(','))
+    listofingredients = readable_list(li)
 
-        dish_Array = []
-        for d in dish_list:
-            dish_Array.append("&dishType=" + d)
+    dish_Array = []
+    for d in dish_list:
+        dish_Array.append("&dishType=" + d)
 
-        d_Array = []
-        for d in diet_list:
-            d_Array.append("&diet=" + d)
+    d_Array = []
+    for d in diet_list:
+        d_Array.append("&diet=" + d)
 
-        h_Array = []
-        for h in health_list:
-            h_Array.append("&health=" + h)
+    h_Array = []
+    for h in health_list:
+        h_Array.append("&health=" + h)
 
-        c_Array = []
-        for c in cuisine_list:
-            c_Array.append("&cuisineType=" + c)
+    c_Array = []
+    for c in cuisine_list:
+        c_Array.append("&cuisineType=" + c)
 
-        dishType = ''.join(dish_Array)
-        dietLabels = ''.join(d_Array)
-        healthLabels = ''.join(h_Array)
-        cuisineType = ''.join(c_Array)
+    dishType = ''.join(dish_Array)
+    dietLabels = ''.join(d_Array)
+    healthLabels = ''.join(h_Array)
+    cuisineType = ''.join(c_Array)
 
-        # Concat all parameters
-        param = ''.join(ingredients+dishType+dietLabels +
-                        healthLabels+cuisineType)
+    # Concat all parameters
+    param = ''.join(ingredients+dishType+dietLabels +
+                    healthLabels+cuisineType)
 
-        # Make API request
-        recipes_list = lookup(param)
+    # Make API request
+    recipes_list = lookup(param)
 
-        saved_recipes_link = db.execute(
-            "SELECT link FROM bookmarks WHERE user_id = ?", session["user_id"])
+    saved_recipes_link = db.execute(
+        "SELECT link FROM bookmarks WHERE user_id = ?", session["user_id"])
 
-        return render_template("result.html",
-                               # Readable list of ingredients
-                               listofingredients=listofingredients,
-                               # Result
-                               recipes_list=recipes_list,
-                               # User input tag
-                               dish_list=dish_list,
-                               diet_list=diet_list,
-                               health_list=health_list,
-                               cuisine_list=cuisine_list,
-                               # Bookmark button exception
-                               saved_recipes_link=saved_recipes_link,
-                               # Dishtype
-                               dishtype=dishtype)
+    return render_template("result.html",
+                           # Readable list of ingredients
+                           listofingredients=listofingredients,
+                           # Result
+                           recipes_list=recipes_list,
+                           # User input tag
+                           dish_list=dish_list,
+                           diet_list=diet_list,
+                           health_list=health_list,
+                           cuisine_list=cuisine_list,
+                           # Bookmark button exception
+                           saved_recipes_link=saved_recipes_link,
+                           # Dishtype
+                           dishtype=dishtype)
 
 
 @app.route("/add", methods=["POST"])
@@ -296,7 +258,7 @@ def add():
     ingredientLines = request.form.get(
         "ingredientLines").strip("[]").strip(",")
 
-    db.execute("insert into bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    db.execute("INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                session["user_id"], link, label, image, source, url, calories, totalTime, dishType, dietLabels, healthLabels, cuisineType, ingredientLines)
 
     return redirect("/bookmarks")
@@ -316,7 +278,7 @@ def bookmarks():
 def remove():
     link = request.form.get("link")
 
-    db.execute("delete from bookmarks where link = (?)", link)
+    db.execute("DELETE FROM bookmarks WHERE link = (?)", link)
 
     return redirect("/bookmarks")
 
@@ -384,8 +346,8 @@ def settings():
     currentusername = row[0]["username"]
 
     if request.method == "GET":
-        # Return message1 so the "Edit Name" tab is set to active
-        message1 = "   "
+        # Return message1 so the "Edit Name" tab is set to active when user reach route via get
+        message1 = " "
         return render_template("settings.html", row=row, currentname=currentname, currentusername=currentusername, message1=message1)
 
     else:
@@ -414,7 +376,7 @@ def settings():
 
         currentpassword = request.form.get("currentpassword").strip()
         newpassword = request.form.get("newpassword").strip()
-        # newpassword is hashed to check_password_hash with confirmpassword(plaintext)
+        # newpassword is hashed so it can be used to check_password_hash
         password = generate_password_hash(newpassword)
         confirmpassword = request.form.get("confirmpassword").strip()
         if currentpassword and newpassword and confirmpassword:

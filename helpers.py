@@ -6,7 +6,7 @@ from functools import wraps
 from typing import Any, List
 
 
-# From CS50 Finance ##################################################################
+# From CS50 Finance #######################################################
 
 
 def login_required(f):
@@ -23,26 +23,26 @@ def login_required(f):
     return decorated_function
 
 
-# Functions ##################################################################
+# Functions ###############################################################
 
 
 def lookup(param):
     try:
         api_key = os.environ.get("API_KEY")
         api_id = os.environ.get("API_ID")
-        url = f"https://api.edamam.com/api/recipes/v2?type=public&app_id={api_id}&app_key={api_key}&q={param}"
-        response = requests.get(url)
+        response = requests.get(
+            f"https://api.edamam.com/api/recipes/v2?type=public&app_id={api_id}&app_key={api_key}&q={param}")
         response.raise_for_status()
     except requests.RequestException:
         return None
     try:
         result = response.json()
-        count = result["count"]
-        next = result["_links"]["next"]["href"]
+        # count = result["count"]
+        # next = result["_links"]["next"]["href"]
         hits_dict = result["hits"]
         recipes_list = []
         for index in hits_dict:
-            link = index["_links"]["self"]["href"]  # Recipe's JSON
+            link = index["_links"]["self"]["href"]  # Recipe's JSON link
             label = index["recipe"]["label"]
             image = index["recipe"]["image"]
             source = index["recipe"]["source"]

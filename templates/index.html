@@ -47,7 +47,7 @@
                 </p>
                 <div id="dietListWrapper" class="hide">
                     <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
-                        {% for diet in dietlabels %}
+                        {% for diet in dietlabels|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="dietLabels" value="{{ diet }}" id="{{ diet }}">
                                 <label class="form-check-label" for="{{ diet }}">{{ dietlabels[diet] }}</label>
@@ -64,7 +64,7 @@
                 <div id="healthListWrapper" class="hide">
                     <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
                         <div class="flex-column">
-                            {% for health in healthlabels1 %}
+                            {% for health in healthlabels1|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
                                     id="{{ health }}">
@@ -73,7 +73,7 @@
                             {% endfor %}
                         </div>
                         <div class="flex-column">
-                            {% for health in healthlabels2 %}
+                            {% for health in healthlabels2|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
                                     id="{{ health }}">
@@ -82,7 +82,7 @@
                             {% endfor %}
                         </div>
                         <div class="flex-column">
-                            {% for health in healthlabels3 %}
+                            {% for health in healthlabels3|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}"
                                     id="{{ health }}">
@@ -101,7 +101,7 @@
                 <div id="cuisineListWrapper" class="hide">
                     <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
                         <div class="flex-column">
-                            {% for cuisine in cuisinetype1 %}
+                            {% for cuisine in cuisinetype1|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{cuisine}}">
                                 <label class="form-check-label" for="{{ cuisine }}">{{ cuisinetype1[cuisine] }}</label>
@@ -109,7 +109,7 @@
                             {% endfor %}
                         </div>
                         <div class="flex-column">
-                            {% for cuisine in cuisinetype2 %}
+                            {% for cuisine in cuisinetype2|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{ cuisine }}2">
                                 <label class="form-check-label" for="{{ cuisine }}2">{{ cuisinetype2[cuisine] }}</label>
@@ -117,7 +117,7 @@
                             {% endfor %}
                         </div>
                         <div class="flex-column">
-                            {% for cuisine in cuisinetype3 %}
+                            {% for cuisine in cuisinetype3|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{ cuisine }}3">
                                 <label class="form-check-label" for="{{ cuisine }}3">{{ cuisinetype3[cuisine] }}</label>
@@ -193,38 +193,38 @@
         })
 
         // Submit
-        //form.onsubmit = function(event){
-            //event.preventDefault();
+        /*form.onsubmit = function(event){
+            event.preventDefault();
             
-            //let myFormData = new FormData(form);
-            //let formDataObject = Object.fromEntries(myFormData.entries());
+            let myFormData = new FormData(form);
+            let formDataObject = Object.fromEntries(myFormData.entries());
 
-            //formDataObject.dietLabels = myFormData.getAll('dietLabels');
-            //formDataObject.healthLabels = myFormData.getAll('healthLabels');
-            //formDataObject.cuisineType = myFormData.getAll('cuisineType');
-            //formDataObject.ingredients = myFormData.getAll('ingredients');
+            formDataObject.dietLabels = myFormData.getAll('dietLabels');
+            formDataObject.healthLabels = myFormData.getAll('healthLabels');
+            formDataObject.cuisineType = myFormData.getAll('cuisineType');
+            formDataObject.ingredients = myFormData.getAll('ingredients');
             
 
-            //myFormData.forEach(function(value) {
-                //if (value.trim() == "") { // If user add input field but not typed in anything
-                    //formDataObject.ingredients.pop(value); // Do not include that field in the array
-                //}
-            //});
+            myFormData.forEach(function(value) {
+                if (value.trim() == "") { // If user add input field but not typed in anything
+                    formDataObject.ingredients.pop(value); // Do not include that field in the array
+                }
+            });
 
-            //console.log(formDataObject); // Object { ingredients: (2) […], dietLabels: (1) […], healthLabels: (2) […] }
+            console.log(formDataObject); // Object { ingredients: (2) […], dietLabels: (1) […], healthLabels: (2) […] }
 
-            //const myJSON = JSON.stringify(formDataObject);
+            const myJSON = JSON.stringify(formDataObject);
 
-            //$.ajax({
-                //url: '/result',
-                //type: 'POST',
-                //contentType: 'application/json',
-                //data: JSON.stringify(formDataObject),
-                //success: function(response){document.write(response);}
-            //});
+            $.ajax({
+                url: '/result',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formDataObject),
+                success: function(response){document.write(response);}
+            });
 
-            //console.log(myJSON); // String { "ingredients": ["banana", "cheese"], "dietLabels": ["balanced"], "healthLabels": ["kidney-friendly", "low-sugar"] }
+            console.log(myJSON); // String { "ingredients": ["banana", "cheese"], "dietLabels": ["balanced"], "healthLabels": ["kidney-friendly", "low-sugar"] }
 
-            //}
+            }*/
     </script>
 {% endblock %}

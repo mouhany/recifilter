@@ -71,37 +71,6 @@
                                     <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine }}</small>
                                 {% endfor %}
                             {% endif %}
-
-
-
-
-                            <!-- {% if dish_list in recipe['dishType'] %}
-                            {% for dish in dish_list %}
-                            <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
-                            {% endfor %}
-                            {% endif %}
-
-                            {% if diet_list in recipe['dietLabels'] %}
-                            {% for diet in diet_list %}
-                            <small class="fw-4 p-2 mb-1 me-1 form">{{ diet }}</small>
-                            {% endfor %}
-                            {% endif %}
-
-                            {% if health_list in recipe['healthLabels'] %}
-                            {% for health in health_list %}
-                            <small class="fw-4 p-2 mb-1 me-1 form">{{ health }}</small>
-                            {% endfor %}
-                            {% endif %}
-
-                            {% if cuisine_list in recipe['cuisineType'] %}
-                            {% for cuisine in cuisine_list %}
-                            <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine }}</small>
-                            {% endfor %}
-                            {% endif %}  -->
-
-
-
-
                         </small>
                     </div>
                 </div>
@@ -261,8 +230,6 @@
 {% endblock %}
 
 
-<!-- ############################ \( ゜o゜)ノ ♬ ヽ(⌐■_■)ノ ♪ ♬ ヾ(-_- )ゞ ♪ ＼(ﾟｰﾟ＼) ############################# -->
-
 
 {% block script %}
 <script>
@@ -294,42 +261,5 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
-
-
-    // Submit
-    //form.onsubmit = function(event){
-        //event.preventDefault();
-        
-        //let myFormData = new FormData(form);
-        //let formDataObject = Object.fromEntries(myFormData.entries());
-
-        //formDataObject.image = myFormData.getAll('image');
-        //formDataObject.label = myFormData.getAll('label');
-        //formDataObject.url = myFormData.getAll('url');
-        //formDataObject.source = myFormData.getAll('source');
-        //formDataObject.totalTime = myFormData.getAll('totalTime');
-        //formDataObject.calories = myFormData.getAll('calories');
-        //formDataObject.dishType = myFormData.getAll('dishType');
-        //formDataObject.dietLabels = myFormData.getAll('dietLabels');
-        //formDataObject.healthLabels = myFormData.getAll('healthLabels');
-        //formDataObject.cuisineType = myFormData.getAll('cuisineType');
-        //formDataObject.ingredientLines = myFormData.getAll('ingredientLines');
-        //formDataObject.link = myFormData.getAll('link');
-
-        //console.log(formDataObject); // Object { ingredients: (2) […], dietLabels: (1) […], healthLabels: (2) […] }
-
-        //const myJSON = JSON.stringify(formDataObject);
-
-        //$.ajax({
-            //url: '/add',
-            //type: 'POST',
-            //contentType: 'application/json',
-            //data: JSON.stringify(formDataObject),
-            //success: function(response){document.write(response);}
-        //});
-
-        //console.log(myJSON); // String { "ingredients": ["banana", "cheese"], "dietLabels": ["balanced"], "healthLabels": ["kidney-friendly", "low-sugar"] }
-
-        //}
 </script>
 {% endblock%}
