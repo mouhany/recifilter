@@ -61,7 +61,7 @@ Users can find recipes by keywords in the text field, by checklists, or a combin
 
 - ### Text Field
 
-The index page consists of a single text field that can be added or removed dynamically with javascript. [Tutorial can be found here](https://youtu.be/Zu_fu6vxevw). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords instead of four and the headline in the result page will only show these two keywords.
+The index page consists of a single text field that can be added or removed dynamically with javascript [(tutorial can be found here)](https://youtu.be/Zu_fu6vxevw). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords instead of four and the headline in the result page will only show these two keywords.
 User can also use the text field as it is, but a comma separated keywords is expected for this method.
 
 - ### Checklists
