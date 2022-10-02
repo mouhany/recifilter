@@ -32,7 +32,7 @@ export API_KEY=123456789
 export API_ID=123456789
 ```
 
-- Copy and paste your API_KEY and API_ID to terminal before running the application:
+- Copy and paste your API_KEY and API_ID to terminal:
 
 ```
 $ export API_KEY=123456789
