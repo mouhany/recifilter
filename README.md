@@ -25,7 +25,7 @@ TBA
 - Create a virtual environment in your local Recifilter directory.
 - Install the required libraries that are listed in [requirements.txt](/requirements.txt).
 - Sign up to [Edamam's Recipe Search API](https://developer.edamam.com/edamam-recipe-api) to get your own API_ID and API_KEY.
-- Save your API_ID and API_KEY somewhere you can easily copy and paste in a format like this (replace 123456789 with your API KEY and API ID):
+- Save your API_ID and API_KEY somewhere you can easily copy and paste in a format like this (replace 123456789 with your API_KEY and API_ID):
 
 ```
 export API_KEY=123456789
