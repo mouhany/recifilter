@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <!-- Modals -->
+                <!-- Modal -->
                 <div class="modal" id="recipe{{ loop.index }}">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
@@ -89,7 +89,7 @@
                                             <img src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}">
                                         </div>
                                         <!-- Total Time and Calories -->
-                                        <div class="small mb-3 lh-lg d-flex flex-wrap justify-content-between">
+                                        <div class="small mb-4 lh-lg d-flex flex-wrap justify-content-between">
                                             <!-- Time -->
                                             <small>
                                                 <span class="bi bi-stopwatch"></span>
@@ -110,7 +110,6 @@
                                         <div class="mb-3 text-center">
                                             <a href="{{ recipe['url'] }}" target=”_blank”><button type="button" class=" yellow px-5 btn btn-primary">View Full Recipe <span class="bi bi-box-arrow-up-right"></span></button></a>
                                         </div>
-
                                     </div>
                                     <!-- Title, Source, & Ingredients -->
                                     <div class="col px-4">
