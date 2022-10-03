@@ -25,7 +25,7 @@ TBA
 - Create a virtual environment in your local Recifilter directory.
 - Install the required libraries that are listed in [requirements.txt](/requirements.txt).
 - Sign up to [Edamam's Recipe Search API](https://developer.edamam.com/edamam-recipe-api) to get your own API_ID and API_KEY.
-- Save your API_ID and API_KEY somewhere you can easily copy and paste in a format like this (replace 123456789 with your API KEY and API ID):
+- Save your API_ID and API_KEY somewhere you can easily copy and paste in a format like this (replace 123456789 with your API_KEY and API_ID):
 
 ```
 export API_KEY=123456789
@@ -51,7 +51,7 @@ $ python3 app.py
 
 ![Login page](./static/other/login.png)
 ![Register page](./static/other/register.png)
-Users have to create an account prior to using this application. Validation is implemented in both front end and back end. Users have to provide a name (which will be used to greet users in the index page), a minimum of four-alphanumeric-characters unique username (that will be used to identify which user has logged in), and a password. The password stored in the database is hashed first, but for safety measures, **PLEASE DO NOT USE YOUR ACTUAL PASSWORD!**
+Users have to create an account prior to using this application. Validation is implemented in both front end and back end. Users have to provide a name (which will be used to greet users in the index page), a minimum of four-alphanumeric-characters username that will be used to identify which user has logged in, and a password. The password stored in the database is hashed first, but for safety measures, **PLEASE DO NOT USE YOUR ACTUAL PASSWORD!**
 
 ## Index Page
 
@@ -61,7 +61,7 @@ Users can find recipes by keywords in the text field, by checklists, or a combin
 
 - ### Text Field
 
-The index page consists of a single text field that can be added or removed dynamically with javascript. [Tutorial can be found here](https://www.youtube.com/watch?v=Zu_fu6vxevw&list=LL&index=8&t=880s). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords instead of four and the headline in the result page will only show these two keywords.
+The index page consists of a single text field that can be added or removed dynamically with javascript [(tutorial can be found here)](https://youtu.be/Zu_fu6vxevw). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords instead of four and the headline in the result page will only show these two keywords.
 User can also use the text field as it is, but a comma separated keywords is expected for this method.
 
 - ### Checklists
