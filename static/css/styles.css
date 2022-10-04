@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    /* font-family: "Montserrat", sans-serif; */
     font-family: lato, sans-serif;
     scroll-behavior: smooth;
     font-style: var(--black);
@@ -12,8 +11,7 @@
 }
 
 .playfair{
-    font-family: playfair-display,
-    serif;
+    font-family: playfair-display, serif;
     font-weight: 900;
     font-style: normal;
 }
@@ -72,14 +70,6 @@ input[type="color"]:focus,
     transition: var(--maintransition);
 }
 
-.center {
-    text-align: center;
-}
-
-.ilb {
-    display: inline-block;
-}
-
 /* Carousel */
 .carousel {
     width: 25rem;
@@ -124,7 +114,6 @@ input[type="submit"] {
     outline: none!important;
     box-shadow: none!important;
 }
-
 
 .yellow,
 .yellow:active,
@@ -207,10 +196,6 @@ nav .navbar-brand {
 
 .hide{
     display: none;
-}
-
-.black{
-    color: var(--black);
 }
 
 #btn-back-to-top {
