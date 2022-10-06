@@ -26,7 +26,7 @@ Session(app)
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///recifilter.db")
 
-# Make sure API key is set
+# Make sure API_KEY and API_ID are set
 if not os.environ.get("API_KEY"):
     raise RuntimeError("API_KEY not set")
 elif not os.environ.get("API_ID"):
