@@ -153,7 +153,7 @@
                                     </div>
                                 </div>
                                 <!-- Remove -->
-                                <div class="row center">
+                                <div class="text-center">
                                     <div class="col">
                                         <form action="/remove" method="POST">
                                             <input name="link" type="hidden" value="{{ recipe['link'] }}">
@@ -175,11 +175,6 @@
 
 {% block script %}
     <script>
-        // Toggle visibility
-        $(".toggler").on("click", function () {
-            var $this = $(this);
-            $this.parent().next().slideToggle();
-            $this.toggleClass('bi-chevron-up bi-chevron-down');
-        })
+        {% include 'js/toggle.js' %}
     </script>
 {% endblock%}

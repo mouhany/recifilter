@@ -13,8 +13,8 @@ TBA
 - Flask
 - Python
 - SQLite
-- Javascript (inline)
-- jQuery (inline)
+- Javascript
+- jQuery
 - HTML
 - CSS
 - Bootstrap 5

@@ -6,3 +6,5 @@ requests
 werkzeug.security
 functools
 typing
+gunicorn
+psycopg2
