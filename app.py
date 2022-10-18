@@ -1,3 +1,4 @@
+from curses.ascii import isalnum
 import os
 
 from cs50 import SQL
@@ -319,8 +320,8 @@ def register():
         if not name or not username or not password:
             message = "Please enter a valid name and/or username and/or password!"
             return render_template("register.html", message=message)
-        if len(username) < 4:
-            message = "Username should be at least four alphanumerical characters!"
+        if len(username) < 4 or not username.isalnum():
+            message = "Username should be a minimum of four alphanumeric (A-z, 0-9) characters!"
             return render_template("register.html", message=message)
 
         pw = generate_password_hash(password)
