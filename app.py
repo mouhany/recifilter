@@ -187,7 +187,7 @@ def result():
     cuisine_list = request.args.getlist("cuisineType")
 
     # Format list to comma-separated string
-    ingredients = str((','.join(ingredients_list)))
+    ingredients = str(','.join(ingredients_list))
 
     # Make ingredients readable for result page's headline
     li = list(ingredients.split(','))
