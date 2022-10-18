@@ -153,13 +153,11 @@
                                     </div>
                                 </div>
                                 <!-- Remove -->
-                                <div class="text-center">
-                                    <div class="col">
-                                        <form action="/remove" method="POST">
-                                            <input name="link" type="hidden" value="{{ recipe['link'] }}">
-                                            <input type="submit" name="remove" id="remove" value="Remove" class="px-5 btn btn-primary" onClick="this.form.submit(); this.parent().parent().parent().remove();" />
-                                        </form>
-                                    </div>
+                                <div class="col text-center">
+                                    <form action="/remove" method="POST">
+                                        <input name="link" type="hidden" value="{{ recipe['link'] }}">
+                                        <input type="submit" name="remove" id="remove" value="Remove" class="px-5 btn btn-primary" onClick="this.form.submit(); this.parent().parent().parent().remove();" />
+                                    </form>
                                 </div>
                             </div>
                         </div>

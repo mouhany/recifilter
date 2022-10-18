@@ -195,7 +195,7 @@
                                             <input type="hidden" name="cuisineType" value="{{ recipe['cuisineType'] }}">
                                             <input type="hidden" name="dishType" value="{{ recipe['dishType'] }}">
                                         </div>
-                                        <div class="col">
+                                        <div class="col text-center">
                                             <input type="submit" name="bookmark" id="bookmark" value="Bookmark" class="px-5 btn btn-primary"
                                             {% if recipe['link'] not in saved_recipes_list %}
                                                 onClick="this.form.submit(); this.disabled=true;this.value='Bookmarked';" 
