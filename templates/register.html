@@ -5,41 +5,39 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container h-custom">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <!-- Carousel photos -->
-            <div class="col-md-9 col-lg-6 col-xl-5">
-                <img name="carousel" class="carousel">
-            </div>
-            <!-- Register form -->
-            <div class="form center p-5 col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form action="/register" method="post">
-                    <!-- Name -->
-                    <div class="mb-3">
-                        <input type="text" autocomplete="off" id="name" name="name" class="inp form-control"
-                        placeholder="Name" required autofocus/>
-                    </div>
-                    <!-- Username -->
-                    <div class="mb-3">
-                        <input type="text" autocomplete="off" id="username" name="username"  class="inp form-control"
-                        placeholder="Username" required/>
-                    </div>
-                    <!-- Password -->
-                    <div class="mb-3">
-                        <input type="password" id="password" name="password" class="inp form-control"
-                        placeholder="Password" required/>
-                    </div>
-                    <!-- Register -->
-                    <div class="text-center mb-3">
-                        <input type="submit" id="register" value="Register" class="btn btn-primary px-5"disabled="disabled"/>
-                    </div>
-                    <!-- Validation -->
-                    <p id="validation" class="mb-3 text-center small fw-light text-muted">{{ message }}</p>
-                    <!-- Login -->
-                    <p class="small text-center fw-normal mb-0">Already registered? <a href="/login"
-                        class="fw-6">Log In!</a></p>
-                </form>
-            </div>
+    <div class="row justify-content-center align-items-center">
+        <!-- Carousel photos -->
+        <div class="col-auto">
+            <img class="img-fluid carousel" name="carousel">
+        </div>
+        <!-- Register form -->
+        <div class="form text-center p-5 col-xl-4 offset-xl-1 col-auto">
+            <form action="/register" method="post">
+                <!-- Name -->
+                <div class="mb-3">
+                    <input type="text" autocomplete="off" id="name" name="name" class="inp form-control"
+                    placeholder="Name" required autofocus/>
+                </div>
+                <!-- Username -->
+                <div class="mb-3">
+                    <input type="text" autocomplete="off" id="username" name="username"  class="inp form-control"
+                    placeholder="Username" required/>
+                </div>
+                <!-- Password -->
+                <div class="mb-3">
+                    <input type="password" id="password" name="password" class="inp form-control"
+                    placeholder="Password" required/>
+                </div>
+                <!-- Register -->
+                <div class="text-center mb-3">
+                    <input type="submit" id="register" value="Register" class="btn btn-primary px-5"disabled="disabled"/>
+                </div>
+                <!-- Validation -->
+                <p id="validation" class="mb-3 text-center small fw-light text-muted">{{ message }}</p>
+                <!-- Login -->
+                <p class="small text-center fw-normal mb-0">Already registered? <a href="/login"
+                    class="fw-6">Log In!</a></p>
+            </form>
         </div>
     </div>
 {% endblock %}
