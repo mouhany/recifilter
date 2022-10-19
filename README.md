@@ -7,6 +7,7 @@
 # Deployment
 
 [https://recifilter.herokuapp.com/](https://recifilter.herokuapp.com/)
+A better way is to clone and run this app locally.
 
 # Technologies
 
