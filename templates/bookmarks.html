@@ -7,14 +7,14 @@
 {% block main %}
     <!-- Headline -->
     {% if saved_recipes_list %}
-        <div class="px-5" style="text-align: left!important;">
-            <p class="mb-3 fs-5 fw-4">Bookmarked recipes:</p>
+        <div class="my-3 text-left">
+            <h5>Bookmarked recipes:</h5>
         </div>
     {% else %}
     {% endif %}
 
     <!-- Result -->
-    <div class="mx-5 form px-2 py-5">
+    <div class="form px-2 py-5">
         {% if not saved_recipes_list %}
         <!-- Handle error -->
         <div class="text-center">
@@ -27,7 +27,7 @@
         <div class="d-flex flex-wrap justify-content-evenly">
             {% for recipe in saved_recipes_list %}
                 <!-- Cards -->
-                <div type="button" class="position-relative border-0 card mb-5" style="width: 14rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
+                <div type="button" class="position-relative border-0 card mb-5" style="width: 13rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
                     <!-- Card Image -->
                     <img class="card-img-top" src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}"> 
                     <!-- Card Body -->

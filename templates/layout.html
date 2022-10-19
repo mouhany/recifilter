@@ -51,6 +51,7 @@
           <span class="playfair">recifilter</span><br>
         </a>
         <!-- Navigation -->
+        {% if session["user_id"] %}
         <button
           aria-controls="navbar"
           aria-expanded="false"
@@ -63,19 +64,20 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbar">
-          {% if session["user_id"] %}
+          <!-- {% if session["user_id"] %} -->
           <ul class="navbar-nav ms-auto mt-2">
             <li class="nav-item px-2"><a class="nav-link" href="/bookmarks">Bookmarks</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="/settings">Settings</a></li>
             <li class="nav-item px-2"><a class="nav-link" href="/logout">Log Out</a></li>
           </ul>
-          {% endif %}
+          <!-- {% endif %} -->
         </div>
+        {% endif %}
       </div>
     </nav>
 
     <!-- Main -->
-    <main class="container-fluid py-2 px-5">
+    <main class="container px-5">
       {% block main %}{% endblock %}
     </main>
     

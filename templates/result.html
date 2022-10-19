@@ -6,17 +6,17 @@
 
 {% block main %}
     <!-- Headline -->
-    <div class="px-5" style="text-align: left!important;">
+    <div class="my-3 text-left">
         {% if recipes_list %}
-        <p class="mb-3 fs-5 fw-4">Recipes 
+        <h5>Recipes 
             {% if listofingredients %}
                 containing {{ listofingredients }}
             {% endif %}
-            that match your requirements.</p>
+            that match your requirements:</h5>
         {% endif %}
     </div>
     <!-- Result -->
-    <div class="mx-5 form px-2 py-5">
+    <div class="form px-2 py-5">
         {% if not recipes_list %}
         <!-- Handle error -->
         <div class="text-center">
@@ -30,7 +30,7 @@
         <div class="d-flex flex-wrap justify-content-evenly">
             {% for recipe in recipes_list %}
                 <!-- Cards -->
-                <div type="button" class="position-relative border-0 card mb-5" style="width: 14rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
+                <div type="button" class="position-relative border-0 card mb-5" style="width: 13rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
                     <!-- Card Image -->
                     <img class="card-img-top" src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}">
                     <!-- Card Body -->
