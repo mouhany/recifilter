@@ -7,7 +7,7 @@
 # Deployment
 
 ### [https://recifilter.herokuapp.com/](https://recifilter.herokuapp.com/)
-Warning: The link above may not work properly in the long run.
+Disclaimer: The deployment above may not work properly in the long run.
 
 # Technologies
 
