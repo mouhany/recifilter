@@ -6,7 +6,7 @@ from functools import wraps
 from typing import Any, List
 
 
-# From CS50 Finance #######################################################
+# From CS50 pset9 Finance #######################################################
 
 
 def login_required(f):

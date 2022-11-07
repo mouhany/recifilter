@@ -1,17 +1,15 @@
-from curses.ascii import isalnum
 import os
 
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from curses.ascii import isalnum
 
 from helpers import login_required, lookup, readable_list
 
 
-# From CS50 Finance #######################################################
-
+# From CS50 pset9 Finance #######################################################
 
 # Configure app
 app = Flask(__name__)
@@ -55,7 +53,7 @@ dietlabels = {
     'low-sodium': 'Low Sodium'
 }
 
-healthlabels1 = {
+healthlabels = {
     'alcohol-cocktail': 'Alcohol-Cocktail',
     'alcohol-free': 'Alcohol-Free',
     'celery-free': 'Celery-Free',
@@ -68,8 +66,6 @@ healthlabels1 = {
     'gluten-free': 'Gluten-Free',
     'immuno-supportive': 'Immuno-Supportive',
     'keto-friendly': 'Keto-Friendly',
-}
-healthlabels2 = {
     'kidney-friendly': 'Kidney-Friendly',
     'kosher': 'Kosher',
     'low-potassium': 'Low-Potassium',
@@ -82,8 +78,6 @@ healthlabels2 = {
     'paleo': 'Paleo',
     'peanut-free': 'Peanut-Free',
     'pescatarian': 'Pescatarian',
-}
-healthlabels3 = {
     'pork-free': 'Pork-Free',
     'red-meat-free': 'Red-Meat-Free',
     'sesame-free': 'Sesame-Free',
@@ -98,16 +92,14 @@ healthlabels3 = {
     'wheat-free': 'Wheat-Free'
 }
 
-cuisinetype1 = {
+cuisinetype = {
     'american': 'American',
     'asian': 'Asian',
     'british': 'British',
     'caribbean': 'Caribbean',
     'central europe': 'Central Europe',
     'chinese': 'Chinese',
-    'eastern europe': 'Eastern Europe'
-}
-cuisinetype2 = {
+    'eastern europe': 'Eastern Europe',
     'french': 'French',
     'greek': 'Greek',
     'indian': 'Indian',
@@ -115,8 +107,6 @@ cuisinetype2 = {
     'japanese': 'Japanese',
     'korean': 'Korean',
     'kosher': 'Kosher',
-}
-cuisinetype3 = {
     'Mediterranean': 'Mediterranean',
     'mexican': 'Mexican',
     'middle eastern': 'Middle Eastern',
@@ -168,10 +158,18 @@ dishtype = {
 def index():
     name = db.execute("SELECT name FROM users WHERE id = ?",
                       session["user_id"])
+
+    # Convert dict into list so it can be sliced, then convert the new sliced list back to dict
+    healthlabels1 = dict(list(healthlabels.items())[0:12])
+    healthlabels2 = dict(list(healthlabels.items())[12:24])
+    healthlabels3 = dict(list(healthlabels.items())[24:36])
+
+    cuisinetype1 = dict(list(cuisinetype.items())[0:7])
+    cuisinetype2 = dict(list(cuisinetype.items())[7:14])
+    cuisinetype3 = dict(list(cuisinetype.items())[14:21])
+
     return render_template("index.html",
-                           name=name,
-                           # Pass key-value pair from dictionaries to be rendered in index.html
-                           dietlabels=dietlabels, healthlabels1=healthlabels1, healthlabels2=healthlabels2, healthlabels3=healthlabels3, cuisinetype1=cuisinetype1, cuisinetype2=cuisinetype2, cuisinetype3=cuisinetype3, dishtype=dishtype)
+                           name=name, dietlabels=dietlabels, healthlabels1=healthlabels1, healthlabels2=healthlabels2, healthlabels3=healthlabels3, cuisinetype1=cuisinetype1, cuisinetype2=cuisinetype2, cuisinetype3=cuisinetype3, dishtype=dishtype)
 
 
 @app.route("/result")
@@ -187,10 +185,10 @@ def result():
     cuisine_list = request.args.getlist("cuisineType")
 
     # Format list to comma-separated string
-    ingredients = str(','.join(ingredients_list))
+    ingredients = str(",".join(ingredients_list))
 
     # Make ingredients readable for result page's headline
-    li = list(ingredients.split(','))
+    li = list(ingredients.split(","))
     listofingredients = readable_list(li)
 
     dish_Array = []
@@ -209,13 +207,13 @@ def result():
     for c in cuisine_list:
         c_Array.append("&cuisineType=" + c)
 
-    dishType = ''.join(dish_Array)
-    dietLabels = ''.join(d_Array)
-    healthLabels = ''.join(h_Array)
-    cuisineType = ''.join(c_Array)
+    dishType = "".join(dish_Array)
+    dietLabels = "".join(d_Array)
+    healthLabels = "".join(h_Array)
+    cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = ''.join(ingredients+dishType+dietLabels +
+    param = "".join(ingredients+dishType+dietLabels +
                     healthLabels+cuisineType)
 
     # Make API request
@@ -348,7 +346,7 @@ def settings():
 
     if request.method == "GET":
         # Return message1 so the "Edit Name" tab is set to active when user reach route via get
-        message1 = " "
+        message1 = ""
         return render_template("settings.html", row=row, currentname=currentname, currentusername=currentusername, message1=message1)
 
     else:
@@ -396,7 +394,7 @@ def settings():
             message3 = "Password has successfully changed!"
             return render_template("settings.html", row=row, message3=message3, currentusername=currentusername, currentname=currentname)
 
-        # If user doesn't change anything but clicked 'save changes'
+        # If user doesn't change anything but clicked "Save Changes"
         return redirect("/")
 
 
