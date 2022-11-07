@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
@@ -160,13 +161,35 @@ def index():
                       session["user_id"])
 
     # Convert dict into list so it can be sliced, then convert the new sliced list back to dict
-    healthlabels1 = dict(list(healthlabels.items())[0:12])
-    healthlabels2 = dict(list(healthlabels.items())[12:24])
-    healthlabels3 = dict(list(healthlabels.items())[24:36])
+    # healthlabels1 = dict(list(healthlabels.items())[0:12])
+    # healthlabels2 = dict(list(healthlabels.items())[12:24])
+    # healthlabels3 = dict(list(healthlabels.items())[24:36])
 
-    cuisinetype1 = dict(list(cuisinetype.items())[0:7])
-    cuisinetype2 = dict(list(cuisinetype.items())[7:14])
-    cuisinetype3 = dict(list(cuisinetype.items())[14:21])
+    # cuisinetype1 = dict(list(cuisinetype.items())[0:7])
+    # cuisinetype2 = dict(list(cuisinetype.items())[7:14])
+    # cuisinetype3 = dict(list(cuisinetype.items())[14:21])
+
+    """ 
+    Syntax: np.array_split(<list name>, <sections>)
+    
+    1. Convert healthlabels.items() (so k-v pairs in healthlabels are stored as tuples) into list.
+        list(healthlabels.items())
+    2. Split list with numpy's array_split.
+        np.array_split(list(healthlabels.items()), 3)
+    3. Index list from no.2 to determine which sublist belongs to healthlabels1, healthlabels2, and healthlabels3.
+        np.array_split(list(healthlabels.items()), 3)[0]
+    4. Convert back to dict.
+    """
+    split_healthlabels = np.array_split(list(healthlabels.items()), 3)
+    split_cuisinetype = np.array_split(list(cuisinetype.items()), 3)
+
+    healthlabels1 = dict(split_healthlabels[0])
+    healthlabels2 = dict(split_healthlabels[1])
+    healthlabels3 = dict(split_healthlabels[2])
+
+    cuisinetype1 = dict(split_cuisinetype[0])
+    cuisinetype2 = dict(split_cuisinetype[1])
+    cuisinetype3 = dict(split_cuisinetype[2])
 
     return render_template("index.html",
                            name=name, dietlabels=dietlabels, healthlabels1=healthlabels1, healthlabels2=healthlabels2, healthlabels3=healthlabels3, cuisinetype1=cuisinetype1, cuisinetype2=cuisinetype2, cuisinetype3=cuisinetype3, dishtype=dishtype)
