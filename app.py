@@ -55,66 +55,66 @@ dietlabels = {
 }
 
 healthlabels = {
-    'alcohol-cocktail': 'Alcohol-Cocktail',
+    'pescatarian': 'Pescatarian',
+    'shellfish-free': 'Shellfish-Free',
     'alcohol-free': 'Alcohol-Free',
     'celery-free': 'Celery-Free',
+    'soy-free': 'Soy-Free',
+    'sugar-free': 'Sugar-Free',
+    'pork-free': 'Pork-Free',
+    'red-meat-free': 'Red-Meat-Free',
+    'sesame-free': 'Sesame-Free',
+    'sulfite-free': 'Sulfite-Free',
+    'tree-nut-free': 'Tree-Nut-Free',
+    'vegan': 'Vegan',
+    'sugar-conscious': 'Sugar-Conscious',
+    'vegetarian': 'Vegetarian',
+    'wheat-free': 'Wheat-Free',
+    'alcohol-cocktail': 'Alcohol-Cocktail',
     'crustacean-free': 'Crustacean-Free',
     'dairy-free': 'Dairy-Free',
-    'DASH': 'DASH',
+    'lupine-free': 'Lupine-Free',
+    'mediterranean': 'Mediterranean',
+    'dash': 'DASH',
+    'kidney-friendly': 'Kidney-Friendly',
     'egg-free': 'Egg-Free',
     'fish-free': 'Fish-Free',
     'fodmap-free': 'FODMAP-Free',
     'gluten-free': 'Gluten-Free',
+    'mollusk-free': 'Mollusk-Free',
+    'peanut-free': 'Peanut-Free',
     'immuno-supportive': 'Immuno-Supportive',
     'keto-friendly': 'Keto-Friendly',
-    'kidney-friendly': 'Kidney-Friendly',
+    'low-sugar': 'Low-Sugar',
+    'mustard-free': 'Mustard-Free',
     'kosher': 'Kosher',
     'low-potassium': 'Low-Potassium',
-    'low-sugar': 'Low-Sugar',
-    'lupine-free': 'Lupine-Free',
-    'Mediterranean': 'Mediterranean',
-    'mollusk-free': 'Mollusk-Free',
-    'mustard-free': 'Mustard-Free',
-    'No-oil-added': 'No oil added',
+    'no-oil-added': 'No oil added',
     'paleo': 'Paleo',
-    'peanut-free': 'Peanut-Free',
-    'pescatarian': 'Pescatarian',
-    'pork-free': 'Pork-Free',
-    'red-meat-free': 'Red-Meat-Free',
-    'sesame-free': 'Sesame-Free',
-    'shellfish-free': 'Shellfish-Free',
-    'soy-free': 'Soy-Free',
-    'sugar-free': 'Sugar-Free',
-    'sugar-conscious': 'Sugar-Conscious',
-    'sulfite-free': 'Sulfite-Free',
-    'tree-nut-free': 'Tree-Nut-Free',
-    'vegan': 'Vegan',
-    'vegetarian': 'Vegetarian',
-    'wheat-free': 'Wheat-Free'
 }
 
 cuisinetype = {
-    'american': 'American',
-    'asian': 'Asian',
-    'british': 'British',
-    'caribbean': 'Caribbean',
-    'central europe': 'Central Europe',
     'chinese': 'Chinese',
     'eastern europe': 'Eastern Europe',
+    'british': 'British',
+    'caribbean': 'Caribbean',
+    'asian': 'Asian',
+    'central europe': 'Central Europe',
+    'american': 'American',
     'french': 'French',
-    'greek': 'Greek',
-    'indian': 'Indian',
-    'italian': 'Italian',
-    'japanese': 'Japanese',
-    'korean': 'Korean',
     'kosher': 'Kosher',
-    'Mediterranean': 'Mediterranean',
-    'mexican': 'Mexican',
-    'middle eastern': 'Middle Eastern',
-    'nordic': 'Nordic',
-    'south american': 'South American',
+    'indian': 'Indian',
+    'korean': 'Korean',
+    'italian': 'Italian',
+    'greek': 'Greek',
+    'japanese': 'Japanese',
+    'mediterranean': 'Mediterranean',
     'south east asian': 'South East Asian',
-    'world': 'World'
+    'mexican': 'Mexican',
+    'south american': 'South American',
+    'world': 'World',
+    'nordic': 'Nordic',
+    'middle eastern': 'Middle Eastern',
 }
 
 dishtype = {
@@ -160,33 +160,25 @@ def index():
     name = db.execute("SELECT name FROM users WHERE id = ?",
                       session["user_id"])
 
-    # Convert dict into list so it can be sliced, then convert the new sliced list back to dict
-    # healthlabels1 = dict(list(healthlabels.items())[0:12])
-    # healthlabels2 = dict(list(healthlabels.items())[12:24])
-    # healthlabels3 = dict(list(healthlabels.items())[24:36])
-
-    # cuisinetype1 = dict(list(cuisinetype.items())[0:7])
-    # cuisinetype2 = dict(list(cuisinetype.items())[7:14])
-    # cuisinetype3 = dict(list(cuisinetype.items())[14:21])
-
     """ 
     Syntax: np.array_split(<list name>, <sections>)
     
-    1. Convert healthlabels.items() (so k-v pairs in healthlabels are stored as tuples) into list.
-        list(healthlabels.items())
+    1. Convert <dict name>.items() (so k-v pairs in healthlabels are stored as tuples) into list and sort it.
     2. Split list with numpy's array_split.
-        np.array_split(list(healthlabels.items()), 3)
     3. Index list from no.2 to determine which sublist belongs to healthlabels1, healthlabels2, and healthlabels3.
-        np.array_split(list(healthlabels.items()), 3)[0]
     4. Convert back to dict.
     """
-    split_healthlabels = np.array_split(list(healthlabels.items()), 3)
-    split_cuisinetype = np.array_split(list(cuisinetype.items()), 3)
 
+    hl = list(healthlabels.items())
+    sorted_hl = sorted(hl)
+    split_healthlabels = np.array_split(sorted_hl, 3)
     healthlabels1 = dict(split_healthlabels[0])
     healthlabels2 = dict(split_healthlabels[1])
     healthlabels3 = dict(split_healthlabels[2])
 
+    ct = list(cuisinetype.items())
+    sorted_ct = sorted(ct)
+    split_cuisinetype = np.array_split(sorted_ct, 3)
     cuisinetype1 = dict(split_cuisinetype[0])
     cuisinetype2 = dict(split_cuisinetype[1])
     cuisinetype3 = dict(split_cuisinetype[2])
