@@ -193,7 +193,7 @@ def index():
         cuisinetype1=cuisinetype1,
         cuisinetype2=cuisinetype2,
         cuisinetype3=cuisinetype3,
-        dishtype=dishtype,
+        dishtype=dishtype
     )
 
 
@@ -238,8 +238,7 @@ def result():
     cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels +
-                    healthLabels + cuisineType)
+    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
@@ -262,7 +261,7 @@ def result():
         # Bookmark button exception
         saved_recipes_link=saved_recipes_link,
         # Dishtype
-        dishtype=dishtype,
+        dishtype=dishtype
     )
 
 
@@ -282,8 +281,7 @@ def add():
     dietLabels = request.form.get("dietLabels").strip("[]").strip(",")
     healthLabels = request.form.get("healthLabels").strip("[]").strip(",")
     cuisineType = request.form.get("cuisineType").strip("[]").strip(",")
-    ingredientLines = request.form.get(
-        "ingredientLines").strip("[]").strip(",")
+    ingredientLines = request.form.get("ingredientLines").strip("[]").strip(",")
 
     db.execute(
         "INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -299,7 +297,7 @@ def add():
         dietLabels,
         healthLabels,
         cuisineType,
-        ingredientLines,
+        ingredientLines
     )
 
     return redirect("/bookmarks")
@@ -313,7 +311,9 @@ def bookmarks():
     )
 
     return render_template(
-        "bookmarks.html", saved_recipes_list=saved_recipes_list, dishtype=dishtype
+        "bookmarks.html", 
+        saved_recipes_list=saved_recipes_list, 
+        dishtype=dishtype
     )
 
 
@@ -378,7 +378,7 @@ def register():
                 "INSERT INTO users (name, username, hash) VALUES (?, ?, ?)",
                 name,
                 username,
-                pw,
+                pw
             )
             session["user_id"] = user
             return redirect("/")
@@ -404,7 +404,7 @@ def settings():
             row=row,
             currentname=currentname,
             currentusername=currentusername,
-            message1=message1,
+            message1=message1
         )
 
     else:
@@ -420,7 +420,7 @@ def settings():
                 row=row,
                 message1=message1,
                 currentname=currentname,
-                currentusername=currentusername,
+                currentusername=currentusername
             )
 
         username = request.form.get("change_username").strip()
@@ -432,7 +432,7 @@ def settings():
                     row=row,
                     message2=message2,
                     currentname=currentname,
-                    currentusername=currentusername,
+                    currentusername=currentusername
                 )
             try:
                 db.execute(
@@ -448,7 +448,7 @@ def settings():
                     row=row,
                     message2=message2,
                     currentusername=currentusername,
-                    currentname=currentname,
+                    currentname=currentname
                 )
             message2 = "Username has successfully changed!"
             return render_template(
@@ -456,7 +456,7 @@ def settings():
                 row=row,
                 message2=message2,
                 currentusername=currentusername,
-                currentname=currentname,
+                currentname=currentname
             )
 
         currentpassword = request.form.get("currentpassword").strip()
@@ -472,7 +472,7 @@ def settings():
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname,
+                    currentname=currentname
                 )
             # check_password_hash(pwhashed, pwplaintext)
             if not check_password_hash(row[0]["hash"], currentpassword):
@@ -482,7 +482,7 @@ def settings():
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname,
+                    currentname=currentname
                 )
             if not check_password_hash(password, confirmpassword):
                 message3 = "New password and confirmation don't match!"
@@ -491,7 +491,7 @@ def settings():
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname,
+                    currentname=currentname
                 )
             db.execute(
                 "UPDATE users SET hash = ? WHERE id = ?", password, session["user_id"]
@@ -502,7 +502,7 @@ def settings():
                 row=row,
                 message3=message3,
                 currentusername=currentusername,
-                currentname=currentname,
+                currentname=currentname
             )
 
         # If user doesn't change anything but clicked "Save Changes"
