@@ -157,7 +157,8 @@ dishtype = {
 @app.route("/")
 @login_required
 def index():
-    name = db.execute("SELECT name FROM users WHERE id = ?", session["user_id"])
+    name = db.execute("SELECT name FROM users WHERE id = ?",
+                      session["user_id"])
 
     """ 
     Syntax: np.array_split(<list name>, <sections>)
@@ -237,7 +238,8 @@ def result():
     cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
+    param = "".join(ingredients + dishType + dietLabels +
+                    healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
@@ -280,7 +282,8 @@ def add():
     dietLabels = request.form.get("dietLabels").strip("[]").strip(",")
     healthLabels = request.form.get("healthLabels").strip("[]").strip(",")
     cuisineType = request.form.get("cuisineType").strip("[]").strip(",")
-    ingredientLines = request.form.get("ingredientLines").strip("[]").strip(",")
+    ingredientLines = request.form.get(
+        "ingredientLines").strip("[]").strip(",")
 
     db.execute(
         "INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -336,7 +339,8 @@ def login():
             return render_template("login.html", message=message)
 
         rows = db.execute(
-            "SELECT * FROM users WHERE username = ?", request.form.get("username")
+            "SELECT * FROM users WHERE username = ?", request.form.get(
+                "username")
         )
 
         # Ensure username exists and password is correct
@@ -394,7 +398,7 @@ def settings():
 
     if request.method == "GET":
         # Return message1 so the "Edit Name" tab is set to active when user reach route via get
-        message1 = ""
+        message1 = " "
         return render_template(
             "settings.html",
             row=row,
