@@ -46,83 +46,83 @@ def after_request(response):
 
 
 dietlabels = {
-    'balanced': 'Balanced',
-    'high-fiber': 'High Fiber',
-    'high-protein': 'High Protein',
-    'low-carb': 'Low Carb',
-    'low-fat': 'Low Fat',
-    'low-sodium': 'Low Sodium'
+    "balanced": "Balanced",
+    "high-fiber": "High Fiber",
+    "high-protein": "High Protein",
+    "low-carb": "Low Carb",
+    "low-fat": "Low Fat",
+    "low-sodium": "Low Sodium",
 }
 
 healthlabels = {
-    'pescatarian': 'Pescatarian',
-    'shellfish-free': 'Shellfish-Free',
-    'alcohol-free': 'Alcohol-Free',
-    'celery-free': 'Celery-Free',
-    'soy-free': 'Soy-Free',
-    'sugar-free': 'Sugar-Free',
-    'pork-free': 'Pork-Free',
-    'red-meat-free': 'Red-Meat-Free',
-    'sesame-free': 'Sesame-Free',
-    'sulfite-free': 'Sulfite-Free',
-    'tree-nut-free': 'Tree-Nut-Free',
-    'vegan': 'Vegan',
-    'sugar-conscious': 'Sugar-Conscious',
-    'vegetarian': 'Vegetarian',
-    'wheat-free': 'Wheat-Free',
-    'alcohol-cocktail': 'Alcohol-Cocktail',
-    'crustacean-free': 'Crustacean-Free',
-    'dairy-free': 'Dairy-Free',
-    'lupine-free': 'Lupine-Free',
-    'mediterranean': 'Mediterranean',
-    'dash': 'DASH',
-    'kidney-friendly': 'Kidney-Friendly',
-    'egg-free': 'Egg-Free',
-    'fish-free': 'Fish-Free',
-    'fodmap-free': 'FODMAP-Free',
-    'gluten-free': 'Gluten-Free',
-    'mollusk-free': 'Mollusk-Free',
-    'peanut-free': 'Peanut-Free',
-    'immuno-supportive': 'Immuno-Supportive',
-    'keto-friendly': 'Keto-Friendly',
-    'low-sugar': 'Low-Sugar',
-    'mustard-free': 'Mustard-Free',
-    'kosher': 'Kosher',
-    'low-potassium': 'Low-Potassium',
-    'no-oil-added': 'No oil added',
-    'paleo': 'Paleo',
+    "pescatarian": "Pescatarian",
+    "shellfish-free": "Shellfish-Free",
+    "alcohol-free": "Alcohol-Free",
+    "celery-free": "Celery-Free",
+    "soy-free": "Soy-Free",
+    "sugar-free": "Sugar-Free",
+    "pork-free": "Pork-Free",
+    "red-meat-free": "Red-Meat-Free",
+    "sesame-free": "Sesame-Free",
+    "sulfite-free": "Sulfite-Free",
+    "tree-nut-free": "Tree-Nut-Free",
+    "vegan": "Vegan",
+    "sugar-conscious": "Sugar-Conscious",
+    "vegetarian": "Vegetarian",
+    "wheat-free": "Wheat-Free",
+    "alcohol-cocktail": "Alcohol-Cocktail",
+    "crustacean-free": "Crustacean-Free",
+    "dairy-free": "Dairy-Free",
+    "lupine-free": "Lupine-Free",
+    "mediterranean": "Mediterranean",
+    "dash": "DASH",
+    "kidney-friendly": "Kidney-Friendly",
+    "egg-free": "Egg-Free",
+    "fish-free": "Fish-Free",
+    "fodmap-free": "FODMAP-Free",
+    "gluten-free": "Gluten-Free",
+    "mollusk-free": "Mollusk-Free",
+    "peanut-free": "Peanut-Free",
+    "immuno-supportive": "Immuno-Supportive",
+    "keto-friendly": "Keto-Friendly",
+    "low-sugar": "Low-Sugar",
+    "mustard-free": "Mustard-Free",
+    "kosher": "Kosher",
+    "low-potassium": "Low-Potassium",
+    "no-oil-added": "No oil added",
+    "paleo": "Paleo",
 }
 
 cuisinetype = {
-    'chinese': 'Chinese',
-    'eastern europe': 'Eastern Europe',
-    'british': 'British',
-    'caribbean': 'Caribbean',
-    'asian': 'Asian',
-    'central europe': 'Central Europe',
-    'american': 'American',
-    'french': 'French',
-    'kosher': 'Kosher',
-    'indian': 'Indian',
-    'korean': 'Korean',
-    'italian': 'Italian',
-    'greek': 'Greek',
-    'japanese': 'Japanese',
-    'mediterranean': 'Mediterranean',
-    'south east asian': 'South East Asian',
-    'mexican': 'Mexican',
-    'south american': 'South American',
-    'world': 'World',
-    'nordic': 'Nordic',
-    'middle eastern': 'Middle Eastern',
+    "chinese": "Chinese",
+    "eastern europe": "Eastern Europe",
+    "british": "British",
+    "caribbean": "Caribbean",
+    "asian": "Asian",
+    "central europe": "Central Europe",
+    "american": "American",
+    "french": "French",
+    "kosher": "Kosher",
+    "indian": "Indian",
+    "korean": "Korean",
+    "italian": "Italian",
+    "greek": "Greek",
+    "japanese": "Japanese",
+    "mediterranean": "Mediterranean",
+    "south east asian": "South East Asian",
+    "mexican": "Mexican",
+    "south american": "South American",
+    "world": "World",
+    "nordic": "Nordic",
+    "middle eastern": "Middle Eastern",
 }
 
 dishtype = {
-    'starter': 'Starter',
-    'main course': 'Main Course',
-    'side dish': 'Side Dish',
-    'drinks': 'Drinks',
-    'desserts': 'Desserts'
+    "starter": "Starter",
+    "main course": "Main Course",
+    "side dish": "Side Dish",
+    "drinks": "Drinks",
+    "desserts": "Desserts"
     # 'alcohol cocktail': 'Alcohol Cocktail',
     # 'biscuits and cookies': 'Biscuit and Cookies',
     # 'bread': 'Bread',
@@ -157,8 +157,7 @@ dishtype = {
 @app.route("/")
 @login_required
 def index():
-    name = db.execute("SELECT name FROM users WHERE id = ?",
-                      session["user_id"])
+    name = db.execute("SELECT name FROM users WHERE id = ?", session["user_id"])
 
     """ 
     Syntax: np.array_split(<list name>, <sections>)
@@ -183,8 +182,18 @@ def index():
     cuisinetype2 = dict(split_cuisinetype[1])
     cuisinetype3 = dict(split_cuisinetype[2])
 
-    return render_template("index.html",
-                           name=name, dietlabels=dietlabels, healthlabels1=healthlabels1, healthlabels2=healthlabels2, healthlabels3=healthlabels3, cuisinetype1=cuisinetype1, cuisinetype2=cuisinetype2, cuisinetype3=cuisinetype3, dishtype=dishtype)
+    return render_template(
+        "index.html",
+        name=name,
+        dietlabels=dietlabels,
+        healthlabels1=healthlabels1,
+        healthlabels2=healthlabels2,
+        healthlabels3=healthlabels3,
+        cuisinetype1=cuisinetype1,
+        cuisinetype2=cuisinetype2,
+        cuisinetype3=cuisinetype3,
+        dishtype=dishtype,
+    )
 
 
 @app.route("/result")
@@ -228,29 +237,31 @@ def result():
     cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = "".join(ingredients+dishType+dietLabels +
-                    healthLabels+cuisineType)
+    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
 
     saved_recipes_link = db.execute(
-        "SELECT link FROM bookmarks WHERE user_id = ?", session["user_id"])
+        "SELECT link FROM bookmarks WHERE user_id = ?", session["user_id"]
+    )
 
-    return render_template("result.html",
-                           # Readable list of ingredients
-                           listofingredients=listofingredients,
-                           # Result
-                           recipes_list=recipes_list,
-                           # User input tag
-                           dish_list=dish_list,
-                           diet_list=diet_list,
-                           health_list=health_list,
-                           cuisine_list=cuisine_list,
-                           # Bookmark button exception
-                           saved_recipes_link=saved_recipes_link,
-                           # Dishtype
-                           dishtype=dishtype)
+    return render_template(
+        "result.html",
+        # Readable list of ingredients
+        listofingredients=listofingredients,
+        # Result
+        recipes_list=recipes_list,
+        # User input tag
+        dish_list=dish_list,
+        diet_list=diet_list,
+        health_list=health_list,
+        cuisine_list=cuisine_list,
+        # Bookmark button exception
+        saved_recipes_link=saved_recipes_link,
+        # Dishtype
+        dishtype=dishtype,
+    )
 
 
 @app.route("/add", methods=["POST"])
@@ -269,11 +280,24 @@ def add():
     dietLabels = request.form.get("dietLabels").strip("[]").strip(",")
     healthLabels = request.form.get("healthLabels").strip("[]").strip(",")
     cuisineType = request.form.get("cuisineType").strip("[]").strip(",")
-    ingredientLines = request.form.get(
-        "ingredientLines").strip("[]").strip(",")
+    ingredientLines = request.form.get("ingredientLines").strip("[]").strip(",")
 
-    db.execute("INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-               session["user_id"], link, label, image, source, url, calories, totalTime, dishType, dietLabels, healthLabels, cuisineType, ingredientLines)
+    db.execute(
+        "INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        session["user_id"],
+        link,
+        label,
+        image,
+        source,
+        url,
+        calories,
+        totalTime,
+        dishType,
+        dietLabels,
+        healthLabels,
+        cuisineType,
+        ingredientLines,
+    )
 
     return redirect("/bookmarks")
 
@@ -282,9 +306,12 @@ def add():
 @login_required
 def bookmarks():
     saved_recipes_list = db.execute(
-        "SELECT * FROM bookmarks WHERE user_id = ?", session["user_id"])
+        "SELECT * FROM bookmarks WHERE user_id = ?", session["user_id"]
+    )
 
-    return render_template("bookmarks.html", saved_recipes_list=saved_recipes_list, dishtype=dishtype)
+    return render_template(
+        "bookmarks.html", saved_recipes_list=saved_recipes_list, dishtype=dishtype
+    )
 
 
 @app.route("/remove", methods=["POST"])
@@ -308,11 +335,14 @@ def login():
             message = "Please enter a valid username and/or password!"
             return render_template("login.html", message=message)
 
-        rows = db.execute("SELECT * FROM users WHERE username = ?",
-                          request.form.get("username"))
+        rows = db.execute(
+            "SELECT * FROM users WHERE username = ?", request.form.get("username")
+        )
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+        if len(rows) != 1 or not check_password_hash(
+            rows[0]["hash"], request.form.get("password")
+        ):
             message = "Invalid username and/or password!"
             return render_template("login.html", message=message)
 
@@ -341,7 +371,11 @@ def register():
 
         try:
             user = db.execute(
-                "INSERT INTO users (name, username, hash) VALUES (?, ?, ?)", name, username, pw)
+                "INSERT INTO users (name, username, hash) VALUES (?, ?, ?)",
+                name,
+                username,
+                pw,
+            )
             session["user_id"] = user
             return redirect("/")
         except:
@@ -354,39 +388,72 @@ def register():
 
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
-    row = db.execute(
-        "SELECT * FROM users WHERE id = ?", session["user_id"])
+    row = db.execute("SELECT * FROM users WHERE id = ?", session["user_id"])
     currentname = row[0]["name"]
     currentusername = row[0]["username"]
 
     if request.method == "GET":
         # Return message1 so the "Edit Name" tab is set to active when user reach route via get
         message1 = ""
-        return render_template("settings.html", row=row, currentname=currentname, currentusername=currentusername, message1=message1)
+        return render_template(
+            "settings.html",
+            row=row,
+            currentname=currentname,
+            currentusername=currentusername,
+            message1=message1,
+        )
 
     else:
         name = request.form.get("change_name").strip()
         if name:
-            db.execute("UPDATE users SET name = ? WHERE id = ?",
-                       name, session["user_id"])
+            db.execute(
+                "UPDATE users SET name = ? WHERE id = ?", name, session["user_id"]
+            )
             currentname = name
             message1 = "Name has successfully changed!"
-            return render_template("settings.html", row=row, message1=message1, currentname=currentname, currentusername=currentusername)
+            return render_template(
+                "settings.html",
+                row=row,
+                message1=message1,
+                currentname=currentname,
+                currentusername=currentusername,
+            )
 
         username = request.form.get("change_username").strip()
         if username:
             if len(username) < 4 or not username.isalnum():
                 message2 = "Username should be a minimum of four alphanumeric (A-z, 0-9) characters!"
-                return render_template("settings.html", row=row, message2=message2, currentname=currentname, currentusername=currentusername)
+                return render_template(
+                    "settings.html",
+                    row=row,
+                    message2=message2,
+                    currentname=currentname,
+                    currentusername=currentusername,
+                )
             try:
-                db.execute("UPDATE users SET username = ? WHERE id = ?",
-                           username, session["user_id"])
+                db.execute(
+                    "UPDATE users SET username = ? WHERE id = ?",
+                    username,
+                    session["user_id"],
+                )
                 currentusername = username
             except:
                 message2 = "Username has been taken. Please pick a different username!"
-                return render_template("settings.html", row=row, message2=message2, currentusername=currentusername, currentname=currentname)
+                return render_template(
+                    "settings.html",
+                    row=row,
+                    message2=message2,
+                    currentusername=currentusername,
+                    currentname=currentname,
+                )
             message2 = "Username has successfully changed!"
-            return render_template("settings.html", row=row, message2=message2, currentusername=currentusername, currentname=currentname)
+            return render_template(
+                "settings.html",
+                row=row,
+                message2=message2,
+                currentusername=currentusername,
+                currentname=currentname,
+            )
 
         currentpassword = request.form.get("currentpassword").strip()
         newpassword = request.form.get("newpassword").strip()
@@ -396,18 +463,43 @@ def settings():
         if currentpassword and newpassword and confirmpassword:
             if len(newpassword) < 8:
                 message3 = "Password should be a minimum of eight characters!"
-                return render_template("settings.html", row=row, message3=message3, currentusername=currentusername, currentname=currentname)
+                return render_template(
+                    "settings.html",
+                    row=row,
+                    message3=message3,
+                    currentusername=currentusername,
+                    currentname=currentname,
+                )
             # check_password_hash(pwhashed, pwplaintext)
             if not check_password_hash(row[0]["hash"], currentpassword):
                 message3 = "Current password is incorrect!"
-                return render_template("settings.html", row=row, message3=message3, currentusername=currentusername, currentname=currentname)
+                return render_template(
+                    "settings.html",
+                    row=row,
+                    message3=message3,
+                    currentusername=currentusername,
+                    currentname=currentname,
+                )
             if not check_password_hash(password, confirmpassword):
                 message3 = "New password and confirmation don't match!"
-                return render_template("settings.html", row=row, message3=message3, currentusername=currentusername, currentname=currentname)
-            db.execute("UPDATE users SET hash = ? WHERE id = ?",
-                       password, session["user_id"])
+                return render_template(
+                    "settings.html",
+                    row=row,
+                    message3=message3,
+                    currentusername=currentusername,
+                    currentname=currentname,
+                )
+            db.execute(
+                "UPDATE users SET hash = ? WHERE id = ?", password, session["user_id"]
+            )
             message3 = "Password has successfully changed!"
-            return render_template("settings.html", row=row, message3=message3, currentusername=currentusername, currentname=currentname)
+            return render_template(
+                "settings.html",
+                row=row,
+                message3=message3,
+                currentusername=currentusername,
+                currentname=currentname,
+            )
 
         # If user doesn't change anything but clicked "Save Changes"
         return redirect("/")
