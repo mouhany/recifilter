@@ -238,7 +238,8 @@ def result():
     cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
+    param = "".join(ingredients + dishType + dietLabels +
+                    healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
@@ -281,7 +282,7 @@ def add():
     dietLabels = request.form.get("dietLabels").strip("[]").strip(",")
     healthLabels = request.form.get("healthLabels").strip("[]").strip(",")
     cuisineType = request.form.get("cuisineType").strip("[]").strip(",")
-    ingredientLines = request.form.get("ingredientLines").strip("[]").strip(",")
+    ingredientLines = request.form.get("ingredientLines").strip("[]")
 
     db.execute(
         "INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -311,8 +312,8 @@ def bookmarks():
     )
 
     return render_template(
-        "bookmarks.html", 
-        saved_recipes_list=saved_recipes_list, 
+        "bookmarks.html",
+        saved_recipes_list=saved_recipes_list,
         dishtype=dishtype
     )
 

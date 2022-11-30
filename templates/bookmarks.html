@@ -88,7 +88,7 @@
                                         <!-- Ingredients -->
                                         <div class="mb-3">
                                             <div class="lh-sm text-muted mb-2">Ingredients:</div>
-                                            {% set list = recipe['ingredientlines'].split(", ") %}
+                                            {% set list = recipe['ingredientlines'].split("', '") %}
                                             <small class="lh-1 text-lowercase">
                                                 <ul class="list-group border-top border-bottom list-group-flush mb-3">
                                                     {% for line in list %}
