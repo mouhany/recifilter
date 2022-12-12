@@ -122,7 +122,7 @@ dishtype = {
     "main course": "Main Course",
     "side dish": "Side Dish",
     "drinks": "Drinks",
-    "desserts": "Desserts"
+    "desserts": "Desserts",
     # 'alcohol cocktail': 'Alcohol Cocktail',
     # 'biscuits and cookies': 'Biscuit and Cookies',
     # 'bread': 'Bread',
@@ -185,15 +185,15 @@ def index():
 
     return render_template(
         "index.html",
-        name=name,
-        dietlabels=dietlabels,
-        healthlabels1=healthlabels1,
-        healthlabels2=healthlabels2,
-        healthlabels3=healthlabels3,
-        cuisinetype1=cuisinetype1,
-        cuisinetype2=cuisinetype2,
-        cuisinetype3=cuisinetype3,
-        dishtype=dishtype
+        name = name,
+        dietlabels = dietlabels,
+        healthlabels1 = healthlabels1,
+        healthlabels2 = healthlabels2,
+        healthlabels3 = healthlabels3,
+        cuisinetype1 = cuisinetype1,
+        cuisinetype2 = cuisinetype2,
+        cuisinetype3 = cuisinetype3,
+        dishtype = dishtype
     )
 
 
@@ -238,8 +238,7 @@ def result():
     cuisineType = "".join(c_Array)
 
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels +
-                    healthLabels + cuisineType)
+    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
@@ -251,18 +250,18 @@ def result():
     return render_template(
         "result.html",
         # Readable list of ingredients
-        listofingredients=listofingredients,
+        listofingredients = listofingredients,
         # Result
-        recipes_list=recipes_list,
+        recipes_list = recipes_list,
         # User input tag
-        dish_list=dish_list,
-        diet_list=diet_list,
-        health_list=health_list,
-        cuisine_list=cuisine_list,
+        dish_list = dish_list,
+        diet_list = diet_list,
+        health_list = health_list,
+        cuisine_list = cuisine_list,
         # Bookmark button exception
-        saved_recipes_link=saved_recipes_link,
+        saved_recipes_link = saved_recipes_link,
         # Dishtype
-        dishtype=dishtype
+        dishtype = dishtype
     )
 
 
@@ -313,8 +312,8 @@ def bookmarks():
 
     return render_template(
         "bookmarks.html",
-        saved_recipes_list=saved_recipes_list,
-        dishtype=dishtype
+        saved_recipes_list = saved_recipes_list,
+        dishtype = dishtype
     )
 
 
@@ -402,13 +401,13 @@ def settings():
         message1 = " "
         return render_template(
             "settings.html",
-            row=row,
-            currentname=currentname,
-            currentusername=currentusername,
-            message1=message1
+            row = row,
+            currentname = currentname,
+            currentusername = currentusername,
+            message1 = message1
         )
-
     else:
+        # Name change
         name = request.form.get("change_name").strip()
         if name:
             db.execute(
@@ -418,22 +417,22 @@ def settings():
             message1 = "Name has successfully changed!"
             return render_template(
                 "settings.html",
-                row=row,
-                message1=message1,
-                currentname=currentname,
-                currentusername=currentusername
+                row = row,
+                message1 = message1,
+                currentname = currentname,
+                currentusername = currentusername
             )
-
+        # Username change
         username = request.form.get("change_username").strip()
         if username:
             if len(username) < 4 or not username.isalnum():
                 message2 = "Username should be a minimum of four alphanumeric (A-z, 0-9) characters!"
                 return render_template(
                     "settings.html",
-                    row=row,
-                    message2=message2,
-                    currentname=currentname,
-                    currentusername=currentusername
+                    row = row,
+                    message2 = message2,
+                    currentname = currentname,
+                    currentusername = currentusername
                 )
             try:
                 db.execute(
@@ -446,20 +445,20 @@ def settings():
                 message2 = "Username has been taken. Please pick a different username!"
                 return render_template(
                     "settings.html",
-                    row=row,
-                    message2=message2,
-                    currentusername=currentusername,
-                    currentname=currentname
+                    row = row,
+                    message2 = message2,
+                    currentusername = currentusername,
+                    currentname = currentname
                 )
             message2 = "Username has successfully changed!"
             return render_template(
                 "settings.html",
-                row=row,
-                message2=message2,
-                currentusername=currentusername,
-                currentname=currentname
+                row = row,
+                message2 = message2,
+                currentusername = currentusername,
+                currentname = currentname
             )
-
+        # Password change
         currentpassword = request.form.get("currentpassword").strip()
         newpassword = request.form.get("newpassword").strip()
         # newpassword is hashed so it can be used to check_password_hash
@@ -470,29 +469,29 @@ def settings():
                 message3 = "Password should be a minimum of eight characters!"
                 return render_template(
                     "settings.html",
-                    row=row,
-                    message3=message3,
-                    currentusername=currentusername,
-                    currentname=currentname
+                    row = row,
+                    message3 = message3,
+                    currentusername = currentusername,
+                    currentname = currentname
                 )
-            # check_password_hash(pwhashed, pwplaintext)
+            # Syntax: check_password_hash(pwhashed, pwplaintext)
             if not check_password_hash(row[0]["hash"], currentpassword):
                 message3 = "Current password is incorrect!"
                 return render_template(
                     "settings.html",
-                    row=row,
-                    message3=message3,
-                    currentusername=currentusername,
-                    currentname=currentname
+                    row = row,
+                    message3 = message3,
+                    currentusername = currentusername,
+                    currentname = currentname
                 )
             if not check_password_hash(password, confirmpassword):
                 message3 = "New password and confirmation don't match!"
                 return render_template(
                     "settings.html",
-                    row=row,
-                    message3=message3,
-                    currentusername=currentusername,
-                    currentname=currentname
+                    row = row,
+                    message3 = message3,
+                    currentusername = currentusername,
+                    currentname = currentname
                 )
             db.execute(
                 "UPDATE users SET hash = ? WHERE id = ?", password, session["user_id"]
@@ -500,10 +499,10 @@ def settings():
             message3 = "Password has successfully changed!"
             return render_template(
                 "settings.html",
-                row=row,
-                message3=message3,
-                currentusername=currentusername,
-                currentname=currentname
+                row = row,
+                message3 = message3,
+                currentusername = currentusername,
+                currentname = currentname
             )
 
         # If user doesn't change anything but clicked "Save Changes"
