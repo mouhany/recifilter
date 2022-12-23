@@ -9,8 +9,8 @@
     <div class="my-3 text-left">
         {% if recipes_list %}
         <h5>Recipes 
-            {% if listofingredients %}
-                containing {{ listofingredients }}
+            {% if readable_ingredients %}
+                containing {{ readable_ingredients }}
             {% endif %}
             that match your requirements:
         </h5>
@@ -41,37 +41,33 @@
                         <!-- Tags -->
                         <small class="lh-1 text-uppercase d-flex flex-wrap">
 
-                            {% if dish_list %}
-                                {% for dish in recipe['dishType'] %}
-                                    {% if dish in dish_list%}
-                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
-                                    {% endif%}
-                                {% endfor %}
-                            {% endif %}
+                            <!-- Or -->
+                            {% for dish in recipe['dishType'] %}
+                                {% if dish in dish_list%}
+                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
+                                {% endif%}
+                            {% endfor %}
 
+                            <!-- And -->
                             {% if diet_list %}
-                                {% for diet in recipe['dietLabels'] %}
-                                    {% if diet in diet_list %}
-                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ diet }}</small>
-                                    {% endif %}
+                                {% for diet in diet_list %}
+                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ diet }}</small>
                                 {% endfor %}
                             {% endif %}
 
+                            <!-- And -->
                             {% if health_list %}
-                                {% for health in recipe['healthLabels'] %}
-                                    {% if health in health_list%}
-                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ health }}</small>
-                                    {% endif %}
+                                {% for health in health_list %}
+                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ health }}</small>
                                 {% endfor %}
                             {% endif %}
 
-                            {% if cuisine_list %}
-                                {% for cuisine in recipe['cuisineType'] %}
-                                    {% if cuisine in cuisine_list %}
-                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine }}</small>
-                                    {% endif %}
-                                {% endfor %}
-                            {% endif %}
+                            <!-- Or -->
+                            {% for cuisine in recipe['cuisineType'] %}
+                                {% if cuisine in cuisine_list %}
+                                    <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine }}</small>
+                                {% endif %}
+                            {% endfor %}
                             
                         </small>
                     </div>
@@ -149,7 +145,9 @@
                                                 <div class="lh-base small text-muted">Dish Type:</div>
                                                 <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
                                                     {% for dish in recipe['dishType']|sort %}
-                                                        <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
+                                                        {% if dish in dishtype%}
+                                                            <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
+                                                        {% endif %}
                                                     {% endfor %}
                                                 </small>
                                             </div>

@@ -29,11 +29,11 @@
                 <!-- Cards -->
                 <div type="button" class="position-relative border-0 card mb-5" style="width: 13rem;" data-bs-toggle="modal" data-bs-target="#recipe{{ loop.index }}">
                     <!-- Card Image -->
-                    <img class="card-img-top" src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}"> 
+                    <img class="card-img-top" src="{{ recipe[4] }}" alt="{{ recipe[3] }}"> 
                     <!-- Card Body -->
                     <div class="card-body" style="text-align: left!important;">
                         <!-- Title -->
-                        <div class="h5 lh-sm card-text text-capitalize mb-2">{{ recipe['label'] }}</div>
+                        <div class="h5 lh-sm card-text text-capitalize mb-2">{{ recipe[3] }}</div>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                                     <div class="col-auto px-4">
                                         <!-- Image -->
                                         <div class="mb-3">
-                                            <img src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}">
+                                            <img src="{{ recipe[4] }}" alt="{{ recipe[3] }}">
                                         </div>
                                         <!-- Total Time and Calories -->
                                         <div class="small mb-5 lh-lg d-flex flex-wrap justify-content-between">
@@ -56,8 +56,8 @@
                                             <small>
                                                 <span class="bi bi-stopwatch"></span>
                                                 <!-- Handle error if no data of totalTime -->
-                                                {% if recipe['totaltime']|float > 0.0 %}
-                                                <span>{{ (recipe['totaltime'])|int }} min.</span>
+                                                {% if recipe[8]|float > 0.0 %}
+                                                <span>{{ (recipe[8])|int }} min.</span>
                                                 {% else %}
                                                 No data.
                                                 {% endif %}
@@ -65,30 +65,30 @@
                                             <!-- Calories -->
                                             <small>
                                                 <span class="bi bi-fire"></span>
-                                                <span>{{ (recipe['calories'])|int }} cal.</span>
+                                                <span>{{ (recipe[7])|int }} cal.</span>
                                             </small>
                                         </div>
                                         <!-- View recipe -->
                                         <div class="mb-5 text-center">
-                                            <a href="{{ recipe['url'] }}" target=”_blank”><button type="button" class=" yellow px-5 btn btn-primary">View Full
+                                            <a href="{{ recipe[6] }}" target=”_blank”><button type="button" class=" yellow px-5 btn btn-primary">View Full
                                                 Recipe <span class="bi bi-box-arrow-up-right"></span> </button></a>
                                         </div>
                                     </div>
                                     <!-- Title, Source, & Ingredients -->
                                     <div class="col px-4">
                                         <!-- Title -->
-                                        <div class="h3 pb-2 lh-sm text-capitalize">{{ recipe['label'] }}</div>
+                                        <div class="h3 pb-2 lh-sm text-capitalize">{{ recipe[3] }}</div>
                                         <!-- Source -->
                                         <div class="small mb-3">
                                             By
-                                            <a href="{{ recipe['url'] }}" target=”_blank”>
-                                                <span>{{ recipe['source'] }}</span>
+                                            <a href="{{ recipe[6] }}" target=”_blank”>
+                                                <span>{{ recipe[5] }}</span>
                                             </a>
                                         </div>
                                         <!-- Ingredients -->
                                         <div class="mb-3">
                                             <div class="lh-sm text-muted mb-2">Ingredients:</div>
-                                            {% set list = recipe['ingredientlines'].split("', '") %}
+                                            {% set list = recipe[13].split("', '") %}
                                             <small class="lh-1 text-lowercase">
                                                 <ul class="list-group border-top border-bottom list-group-flush mb-3">
                                                     {% for line in list %}
@@ -109,7 +109,7 @@
                                         <div class="mb-4 py-2 border-top border-bottom hide">
                                             <!-- Dish Tags -->
                                             <div class="mb-1">
-                                                {% set list = recipe['dishtype'].split("'") %}
+                                                {% set list = recipe[9].split("'") %}
                                                 <div class="lh-base small text-muted">Dish Type:</div>
                                                 <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
                                                     {% for dish in list %}
@@ -121,7 +121,7 @@
                                             </div>
                                             <!-- Diet Tags -->
                                             <div class="mb-1">
-                                                {% set list = recipe['dietlabels'].split(",") %}
+                                                {% set list = recipe[10].split(",") %}
                                                 <div class="lh-sm small text-muted">Diet Type:</div>
                                                 <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
                                                     {% for diet in list|sort %}
@@ -131,7 +131,7 @@
                                             </div>
                                             <!-- Health Tags -->
                                             <div class="mb-1">
-                                                {% set list = recipe['healthlabels'].split(",") %}
+                                                {% set list = recipe[11].split(",") %}
                                                 <div class="lh-sm small text-muted">Allergy / Restriction:</div>
                                                 <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
                                                     {% for health in list|sort %}
@@ -141,7 +141,7 @@
                                             </div>
                                             <!-- Cuisine Tags -->
                                             <div class="mb-1">
-                                                {% set list = recipe['cuisinetype'].split(",") %}
+                                                {% set list = recipe[12].split(",") %}
                                                 <div class="lh-sm small text-muted">Cuisine Type:</div>
                                                 <small class="ps-2 lh-1 text-uppercase d-flex flex-wrap">
                                                     {% for cuisine in list|sort %}
@@ -155,7 +155,7 @@
                                 <!-- Remove -->
                                 <div class="col text-center">
                                     <form action="/remove" method="POST">
-                                        <input name="link" type="hidden" value="{{ recipe['link'] }}">
+                                        <input name="link" type="hidden" value="{{ recipe[2] }}">
                                         <input type="submit" name="remove" id="remove" value="Remove" class="px-5 btn btn-primary" onClick="this.form.submit(); this.parent().parent().parent().remove();" />
                                     </form>
                                 </div>

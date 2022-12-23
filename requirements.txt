@@ -1,10 +1,7 @@
 os
-cs50
 Flask
 Flask-Session
 requests
 werkzeug.security
 functools
 typing
-gunicorn
-psycopg2

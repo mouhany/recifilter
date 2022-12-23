@@ -144,16 +144,16 @@
                                     aria-labelledby="password-left-tab">
                                     <section>
                                         <div class="small d-flex flex-wrap justify-content-between mb-3">
-                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="currentpassword" id="password" placeholder="Enter current password"/>
-                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="newpassword" id="new_password"placeholder="Enter new password" />
-                                            <input type="password" class="mb-3 border-0 form-control form-control-sm" name="confirmpassword" id="confirm_new_password" placeholder="Confirm new password" />
+                                            <input type="password" class="inp mb-3 border-0 form-control form-control-sm" name="currentpassword" id="password" placeholder="Enter current password"/>
+                                            <input type="password" class="inp mb-3 border-0 form-control form-control-sm" name="newpassword" id="new_password"placeholder="Enter new password" />
+                                            <input type="password" class="inp mb-3 border-0 form-control form-control-sm" name="confirmpassword" id="confirm_new_password" placeholder="Confirm new password" />
                                         </div>
                                     </section>
                                 </article>
                                 <!-- Validation -->
                                 <p class="mb-4 small fw-4 text-muted validation">{{ message3 }}</p>
                                 <div class="text-center mb-3">
-                                    <input type="submit" id="save_password" value="Save Changes" class="btn btn-primary px-5" />
+                                    <input type="submit" id="save_password" value="Save Changes" class="btn btn-primary px-5" disabled="disabled"/>
                                 </div>
                             </div>
                         </div>
@@ -166,4 +166,8 @@
 
 
 
-{% block script%}{% endblock %}
+{% block script%}
+<script>
+    {% include 'js/disableButton.js' %}
+</script>
+{% endblock %}

@@ -1,5 +1,6 @@
 import os
 import requests
+import sqlite3
 
 from flask import redirect, session
 from functools import wraps
@@ -24,6 +25,11 @@ def login_required(f):
 
 
 # Functions ###############################################################
+
+def database(db="recifilter.db"):
+    con = sqlite3.connect(db)
+    cur = con.cursor()
+    return con, cur
 
 
 def lookup(param):

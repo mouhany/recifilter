@@ -2,12 +2,11 @@
 
 ### [Video Demo](https://youtu.be/pKWqBQl-LmM)
 
-### Description: A recipe-filtering web application that lets users, with or without complex dietary need, find and bookmark recipes from the internet with the help from [Edamam's Recipe Search API](https://developer.edamam.com/edamam-recipe-api).
+### Description: A recipe-filtering web application that lets users, with or without complex dietary need, find and bookmark recipes from the internet.
 
 # Deployment
 
-### [https://recifilter.herokuapp.com/](https://recifilter.herokuapp.com/)
-Disclaimer: The deployment above may not work properly in the long run.
+### [https://recifilter.pythonanywhere.com/](https://recifilter.pythonanywhere.com/)
 
 # Technologies
 
@@ -48,7 +47,7 @@ $ python3 app.py
 
 # Features
 
-## Login / Register
+## Login / Register Page
 
 ![Login page](./static/other/login.png)
 ![Register page](./static/other/register.png)
@@ -58,18 +57,20 @@ Users have to create an account prior to using this application. Validation is i
 
 ![Index page](./static/other/index.png)
 ![Index with input](./static//other/index_input.png)
-Users can find recipes by keywords in the text field, by checklists, or a combination of both. Input will be sent to back end via get request since we're only using it to retrieve a JSON data from the API.
+Users can find recipes by ingredients / keywords in the text field, by checklists, or a combination of both. Input will be sent to back end via get request since we're only using it to retrieve a JSON data from the API.
 
 - ### Text Field
 
-The index page consists of a single text field that can be added or removed dynamically with javascript [(tutorial can be found here)](https://youtu.be/Zu_fu6vxevw). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords instead of four and the headline in the result page will only show these two keywords.
+The index page consists of a text field that can be added or removed dynamically with javascript [(tutorial can be found here)](https://youtu.be/Zu_fu6vxevw). Empty value in the text field is handled in the back end e.g. if users added four text field but only typed in two, the back end will recognize it as two keywords and the headline in the result page will only show these two keywords.
 User can also use the text field as it is, but a comma separated keywords is expected for this method.
 
 - ### Checklists
 
-There are four categories available. Description of each label is taken from [https://developer.edamam.com/edamam-docs-recipe-api](https://developer.edamam.com/edamam-docs-recipe-api):
+There are four different categories available. Description of each label is taken from [https://developer.edamam.com/edamam-docs-recipe-api](https://developer.edamam.com/edamam-docs-recipe-api):
 
 1. #### Dish Type
+
+   Will return recipes that match with at least one label (if user checked more than one).
 
    - Starter
    - Main Course
@@ -79,6 +80,8 @@ There are four categories available. Description of each label is taken from [ht
 
 2. #### Diet Labels
 
+   Will only return recipes that match with all the checked labels.
+
    - Balanced: Protein/Fat/Carb values in 15/35/50 ratio.
    - High Fiber: More than 5g fiber per serving.
    - High Protein: More than 50% of total calories from proteins.
@@ -87,6 +90,8 @@ There are four categories available. Description of each label is taken from [ht
    - Low Sodium: Less than 140mg Na per serving.
 
 3. #### Allergies / Restrictions
+
+   Will only return recipes that match with all the checked labels.
 
    - Alcohol-Cocktail: Describes an alcoholic cocktail.
    - Alcohol-Free: No alcohol used or contained.
@@ -126,7 +131,7 @@ There are four categories available. Description of each label is taken from [ht
    - Wheat-Free: No wheat, can have gluten though.
 
 4. #### Cuisine Type
-
+   Will return recipes that match with at least one label (if user checked more than one).
    - American
    - Asian
    - British
@@ -153,13 +158,14 @@ There are four categories available. Description of each label is taken from [ht
 
 ![Result page](./static/other/result.png)
 ![Recipe's modal](./static/other/result_modal.png)
-Recipes that match users' input will be shown as cards in the result page. Cards will only show image, recipe's name, and labels that match with users' input. [Bootstrap's modal](https://getbootstrap.com/docs/5.0/components/modal/) is used to show more information of the recipes such as ingredients, preparation time, calories, and labels. Users can go to the recipe's source link or add recipes to bookmarks from modal.
 
-## Bookmarks
+Recipes that match users' input will be shown as [cards](https://getbootstrap.com/docs/5.0/components/card) in this page. These cards will only show minimal information for users to skim through. A click on these cards will show more information of the recipes via [Bootstrap's modal](https://getbootstrap.com/docs/5.0/components/modal/). Users can go to the recipe's source link or add recipes to bookmarks from here.
+
+## Bookmarks Page
 
 ![Empty bookmarks](./static/other/bookmarks_empty.png)
 ![Bookmarks](./static/other/bookmarks.png)
-Bookmarked recipes will be saved in this page. Similar to result, recipes that are saved in this page will be shown as card and bootstrap's modal is used to show more information of the recipes. Users can go to the recipe's source link or remove recipes from modal.
+Similar to the result page, recipes that are saved in this page will be shown as cards and bootstrap's modal is used to show more information about the recipe or to remove it.
 
 ## Settings
 
@@ -168,12 +174,14 @@ Users can change name, username, and password in this page. Validation is implem
 
 - ### Name
 
-Users are free to use their name, a single letter, or even an emoji to be their name. Name will be displayed in the index page to greet users.
+  ![Name](./static/other/settings_name.png)
+  Users are free to use their name, a single letter, or even an emoji to be their name. Name will be displayed in the index page to greet users.
 
 - ### Username
 
-Username should contain at least four alphanumeric characters. Username is unique and used to identify which user has logged in.
+  ![Username](./static/other/settings_username.png)
+  Username should contain at least four alphanumeric characters. Username is unique and used to identify which user has logged in.
 
 - ### Password
-
-Password should be a minimum of eight alphanumeric characters and should not contain trailing spaces.
+  ![Password](./static/other/settings_password.png)
+  Password should be a minimum of eight alphanumeric characters and should not contain trailing spaces.
