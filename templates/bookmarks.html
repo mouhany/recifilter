@@ -5,18 +5,18 @@
 {% endblock %}
 
 {% block main %}
+
     <!-- Headline -->
     {% if saved_recipes_list %}
         <div class="my-3 text-left">
             <h5>Bookmarked recipes:</h5>
         </div>
-    {% else %}
     {% endif %}
 
     <!-- Result -->
     <div class="form px-2 py-5">
-        {% if not saved_recipes_list %}
         <!-- Handle error -->
+        {% if not saved_recipes_list %}
         <div class="text-center">
             <div class="fs-1 fw-7 text-center mb-3">Nothing here!</div>
             <div class="fs-5">You haven't bookmarked any recipe so far.</div>
@@ -24,6 +24,7 @@
             <a href="/" class="fw-6 fs-4">Start now!</a>
         </div>
         {% else %}
+        <!-- Show result  -->
         <div class="d-flex flex-wrap justify-content-evenly">
             {% for recipe in saved_recipes_list %}
                 <!-- Cards -->
@@ -36,13 +37,13 @@
                         <div class="h5 lh-sm card-text text-capitalize mb-2">{{ recipe[3] }}</div>
                     </div>
                 </div>
-
                 <!-- Modals -->
                 <div class="modal" id="recipe{{ loop.index }}">
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <!-- Modal body -->
                             <div class="modal-body p-5">
+                                <!-- Visible -->
                                 <div class="row mb-3">
                                     <!-- Image, Total Time, & Calories -->
                                     <div class="col-auto px-4">
@@ -55,7 +56,7 @@
                                             <!-- Time -->
                                             <small>
                                                 <span class="bi bi-stopwatch"></span>
-                                                <!-- Handle error if no data of totalTime -->
+                                                <!-- Handle error if no data for totalTime -->
                                                 {% if recipe[8]|float > 0.0 %}
                                                 <span>{{ (recipe[8])|int }} min.</span>
                                                 {% else %}
@@ -99,12 +100,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Tags -->
+                                <!-- Expanded Tags -->
                                 <div class="row mb-3 px-4">
                                     <div class="col-12 px-0">
                                         <div class="lh-base text-muted py-2">Show Tags
-                                            <a href="javascript:void(0)" id="tag"
-                                                class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                                            <a href="javascript:void(0)" id="tag" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
                                         </div>
                                         <div class="mb-4 py-2 border-top border-bottom hide">
                                             <!-- Dish Tags -->
@@ -167,6 +167,7 @@
         </div>
         {% endif %}
     </div>
+
 {% endblock %}
 
 

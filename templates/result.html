@@ -5,29 +5,32 @@
 {% endblock %}
 
 {% block main %}
+
     <!-- Headline -->
-    <div class="my-3 text-left">
-        {% if recipes_list %}
-        <h5>Recipes 
-            {% if readable_ingredients %}
-                containing {{ readable_ingredients }}
-            {% endif %}
-            that match your requirements:
-        </h5>
-        {% endif %}
-    </div>
+    {% if recipes_list %}
+        <div class="my-3 text-left">
+            <h5>
+                Recipes 
+                {% if readable_ingredients %}
+                    containing {{ readable_ingredients }}
+                {% endif %}
+                that match your requirements:
+            </h5>
+        </div>
+    {% endif %}
+
     <!-- Result -->
     <div class="form px-2 py-5">
-        {% if not recipes_list %}
         <!-- Handle error -->
+        {% if not recipes_list %}
         <div class="text-center">
             <div class="fs-1 fw-7 text-center mb-3">No result! <span class="noto">🙁</span></div>
             <div class="fs-5">We couldn't find recipes that match all of your requirements.</div>
-            <div class="fs-5 mb-5">Please make sure there's no typo in your
-                query.</div>
+            <div class="fs-5 mb-5">Please make sure there's no typo in your query.</div>
             <a href="/" class="fw-6 fs-4">Try Again?</a>
         </div>
         {% else %}
+        <!-- Show result -->
         <div class="d-flex flex-wrap justify-content-evenly">
             {% for recipe in recipes_list %}
                 <!-- Cards -->
@@ -38,37 +41,32 @@
                     <div class="card-body" style="text-align: left!important;">
                         <!-- Title -->
                         <div class="h5 lh-sm card-text text-capitalize mb-2">{{ recipe['label'] }}</div>
-                        <!-- Tags -->
+                        <!-- Input Label -->
                         <small class="lh-1 text-uppercase d-flex flex-wrap">
-
-                            <!-- Or -->
+                            <!-- Dish Tags (match one) -->
                             {% for dish in recipe['dishType'] %}
                                 {% if dish in dish_list%}
                                     <small class="fw-4 p-2 mb-1 me-1 form">{{ dish }}</small>
                                 {% endif%}
                             {% endfor %}
-
-                            <!-- And -->
+                            <!-- Diet Tags (match all) -->
                             {% if diet_list %}
                                 {% for diet in diet_list %}
                                     <small class="fw-4 p-2 mb-1 me-1 form">{{ diet }}</small>
                                 {% endfor %}
                             {% endif %}
-
-                            <!-- And -->
+                            <!-- Health Tags (match all) -->
                             {% if health_list %}
                                 {% for health in health_list %}
                                     <small class="fw-4 p-2 mb-1 me-1 form">{{ health }}</small>
                                 {% endfor %}
                             {% endif %}
-
-                            <!-- Or -->
+                            <!-- Cuisine Tags (match one) -->
                             {% for cuisine in recipe['cuisineType'] %}
                                 {% if cuisine in cuisine_list %}
                                     <small class="fw-4 p-2 mb-1 me-1 form">{{ cuisine }}</small>
                                 {% endif %}
                             {% endfor %}
-                            
                         </small>
                     </div>
                 </div>
@@ -78,6 +76,7 @@
                         <div class="modal-content">
                             <!-- Modal body -->
                             <div class="modal-body p-5">
+                                <!-- Visible -->
                                 <div class="row mb-3">
                                     <!-- Image, Total Time, & Calories -->
                                     <div class="col-auto px-4">
@@ -90,7 +89,7 @@
                                             <!-- Time -->
                                             <small>
                                                 <span class="bi bi-stopwatch"></span>
-                                                <!-- Handle error if no data of totalTime -->
+                                                <!-- Handle error if no data for totalTime -->
                                                 {% if recipe['totalTime']|float > 0.0 %}
                                                     <span>{{ (recipe['totalTime'])|int }} min.</span>
                                                 {% else %}
@@ -133,7 +132,7 @@
                                         
                                     </div>
                                 </div>
-                                <!-- Tags -->
+                                <!-- Expanded Tags -->
                                 <div class="row mb-3 px-4">
                                     <div class="col-12 px-0">
                                         <div class="lh-base text-muted py-2">Show Tags
@@ -181,7 +180,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Bookmark -->
                                 <form action="/add" method="POST">
                                     <div class="row center">
@@ -222,6 +220,7 @@
     <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-back-to-top">
         <i class="bi bi-arrow-up"></i>
     </button>
+    
 {% endblock %}
 
 
