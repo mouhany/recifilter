@@ -1,6 +1,7 @@
 import os
 import requests
 import sqlite3
+import numpy as np
 
 from flask import redirect, session
 from functools import wraps
@@ -30,6 +31,34 @@ def database(db="recifilter.db"):
     con = sqlite3.connect(db)
     cur = con.cursor()
     return con, cur
+
+
+# hl = list(healthlabels.items())
+# sorted_hl = sorted(hl)
+# split_healthlabels = np.array_split(sorted_hl, 3)
+# healthlabels1 = dict(split_healthlabels[0])
+# healthlabels2 = dict(split_healthlabels[1])
+# healthlabels3 = dict(split_healthlabels[2])
+
+
+def split_dict(dct, sections):
+    lst = sorted(list(dct.items()))
+    split_lst = np.array_split(lst, sections)
+    splitted = []
+    for i in range(sections):
+        sec_i = split_lst[i]
+        splitted.append(dict(sec_i))
+    return splitted
+    
+    
+    # sorted_list = sorted(list(dict.items()))
+    # splitted_list = np.array_split(sorted_list, sections)
+    # result = []
+    # for i in range(sections):
+    #     dict[i] = dict(splitted_list[i])
+    #     result.append(dict[i])
+    # # print(result)
+    # return result
 
 
 def lookup(param):

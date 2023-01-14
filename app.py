@@ -1,12 +1,11 @@
 import os
-import numpy as np
 
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from curses.ascii import isalnum
 
-from helpers import login_required, database, lookup, readable_list
+from helpers import login_required, database, split_dict, lookup, readable_list
 
 
 # From CS50 pset9 Finance #######################################################
@@ -155,99 +154,74 @@ dishtype = {
 def index():
     con, cur = database()
     name = cur.execute("SELECT name FROM users WHERE id = ?",
-                       (session["user_id"],))
+        (session["user_id"],)
+    )
     name = name.fetchall()
     con.close()
 
-    """
-    Syntax: np.array_split(<list name>, <sections>)
+    hl = split_dict(healthlabels, 3)
+    ct = split_dict(cuisinetype, 3)
 
-    1. Convert <dict name>.items() (so k-v pairs in healthlabels are stored as tuples) into list and sort it.
-    2. Split list with numpy's array_split.
-    3. Index list from no.2 to determine which sublist belongs to healthlabels1, healthlabels2, and healthlabels3.
-    4. Convert back to dict.
-    """
-    hl = list(healthlabels.items())
-    sorted_hl = sorted(hl)
-    split_healthlabels = np.array_split(sorted_hl, 3)
-    healthlabels1 = dict(split_healthlabels[0])
-    healthlabels2 = dict(split_healthlabels[1])
-    healthlabels3 = dict(split_healthlabels[2])
-
-    ct = list(cuisinetype.items())
-    sorted_ct = sorted(ct)
-    split_cuisinetype = np.array_split(sorted_ct, 3)
-    cuisinetype1 = dict(split_cuisinetype[0])
-    cuisinetype2 = dict(split_cuisinetype[1])
-    cuisinetype3 = dict(split_cuisinetype[2])
-
-    return render_template(
-        "index.html",
+    return render_template("index.html",
         name=name,
         dietlabels=dietlabels,
-        healthlabels1=healthlabels1,
-        healthlabels2=healthlabels2,
-        healthlabels3=healthlabels3,
-        cuisinetype1=cuisinetype1,
-        cuisinetype2=cuisinetype2,
-        cuisinetype3=cuisinetype3,
-        dishtype=dishtype
+        hl=hl,
+        len_hl=len(hl),
+        ct=ct,
+        len_ct=len(ct),
+        dishtype=dishtype,
     )
 
 
 @app.route("/result")
 @login_required
 def result():
-    # Get all input values for ingredients including the empty ones
     i_list = request.args.getlist("ingredients")
-    # Remove empty values with list comprehension
+    # Remove empty values (if any) with list comprehension
     ingredients_list = [i.lower().strip() for i in (filter(None, i_list))]
+    ingredients = str(",".join(ingredients_list))
+    
     # Make ingredients readable for result page's headline
     readable_ingredients = readable_list(ingredients_list)
 
     dish_list = request.args.getlist("dishType")
-    diet_list = request.args.getlist("dietLabels")
-    health_list = request.args.getlist("healthLabels")
-    cuisine_list = request.args.getlist("cuisineType")
-
-    ingredients = str(",".join(ingredients_list))
-
     dish_Array = []
     for d in dish_list:
         dish_Array.append("&dishType=" + d)
     dishType = "".join(dish_Array)
-
+    
+    diet_list = request.args.getlist("dietLabels")
     diet_Array = []
     for d in diet_list:
         diet_Array.append("&diet=" + d)
     dietLabels = "".join(diet_Array)
-
+    
+    health_list = request.args.getlist("healthLabels")
     health_Array = []
     for h in health_list:
         health_Array.append("&health=" + h)
     healthLabels = "".join(health_Array)
-
+    
+    cuisine_list = request.args.getlist("cuisineType")
     cuisine_Array = []
     for c in cuisine_list:
         cuisine_Array.append("&cuisineType=" + c)
     cuisineType = "".join(cuisine_Array)
 
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels +
-                    healthLabels + cuisineType)
+    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
 
     # Make API request
     recipes_list = lookup(param)
 
     con, cur = database()
-    saved_recipes_link = cur.execute(
-        "SELECT link FROM bookmarks WHERE user_id = ?", (session["user_id"],)
+    saved_recipes_link = cur.execute("SELECT link FROM bookmarks WHERE user_id = ?",
+        (session["user_id"],)
     )
     saved_recipes_link = saved_recipes_link.fetchall()
     con.close()
 
-    return render_template(
-        "result.html",
+    return render_template("result.html",
         readable_ingredients=readable_ingredients,
         recipes_list=recipes_list,
         dish_list=dish_list,
@@ -255,7 +229,7 @@ def result():
         health_list=health_list,
         cuisine_list=cuisine_list,
         saved_recipes_link=saved_recipes_link,
-        dishtype=dishtype
+        dishtype=dishtype,
     )
 
 
@@ -279,21 +253,20 @@ def add():
     ingredientLines = request.form.get("ingredientLines").strip("[]")
 
     con, cur = database()
-    cur.execute(
-        "INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    cur.execute("INSERT INTO bookmarks (user_id, link, label, image, source, url, calories, totaltime, dishtype, dietlabels, healthlabels, cuisinetype, ingredientlines) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         (session["user_id"],
-         link,
-         label,
-         image,
-         source,
-         url,
-         calories,
-         totalTime,
-         dishType,
-         dietLabels,
-         healthLabels,
-         cuisineType,
-         ingredientLines)
+        link,
+        label,
+        image,
+        source,
+        url,
+        calories,
+        totalTime,
+        dishType,
+        dietLabels,
+        healthLabels,
+        cuisineType,
+        ingredientLines)
     )
     con.commit()
     con.close()
@@ -305,16 +278,15 @@ def add():
 @login_required
 def bookmarks():
     con, cur = database()
-    saved_recipes_list = cur.execute(
-        "SELECT * FROM bookmarks WHERE user_id = ?", (session["user_id"],)
+    saved_recipes_list = cur.execute("SELECT * FROM bookmarks WHERE user_id = ?",
+        (session["user_id"],)
     )
     saved_recipes_list = saved_recipes_list.fetchall()
     con.close()
 
-    return render_template(
-        "bookmarks.html",
+    return render_template("bookmarks.html",
         saved_recipes_list=saved_recipes_list,
-        dishtype=dishtype
+        dishtype=dishtype,
     )
 
 
@@ -324,7 +296,9 @@ def remove():
     link = request.form.get("link")
 
     con, cur = database()
-    cur.execute("DELETE FROM bookmarks WHERE link = (?)", (link,))
+    cur.execute("DELETE FROM bookmarks WHERE link = (?)",
+        (link,)
+    )
     con.commit()
     con.close()
 
@@ -340,25 +314,24 @@ def login():
 
         if not username or not password:
             message = "Please enter a valid username and/or password!"
-            return render_template("login.html", message=message)
+            return render_template("login.html", 
+                message=message,
+            )
 
         con, cur = database()
-        rows = cur.execute(
-            "SELECT * FROM users WHERE username = ?", (request.form.get(
-                "username"),)
+        rows = cur.execute("SELECT * FROM users WHERE username = ?",
+            (request.form.get("username"),)
         )
         rows = rows.fetchall()
-        validate_password = check_password_hash(
-            rows[0][3], request.form.get("password"))
+        
+        validate_password = check_password_hash(rows[0][3], request.form.get("password"))
 
         # Ensure username exists and password is correct
-        if len(rows) != 1:
-            # or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            message = "Invalid username!"
-            return render_template("login.html", message=message)
-        elif not validate_password:
-            message = "Invalid password!"
-            return render_template("login.html", message=message)
+        if len(rows) != 1 or not validate_password:
+            message = "Invalid username and/or password!"
+            return render_template("login.html",
+                message=message,
+            )
 
         session["user_id"] = rows[0][0]
         con.close()
@@ -368,7 +341,7 @@ def login():
         return render_template("login.html")
 
 
-@ app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
         name = request.form.get("name").strip()
@@ -377,20 +350,23 @@ def register():
 
         if not name or not username or not password:
             message = "Please enter a valid name and/or username and/or password!"
-            return render_template("register.html", message=message)
+            return render_template("register.html",
+                message=message,
+            )
         if len(username) < 4 or not username.isalnum():
             message = "Username should be a minimum of four alphanumeric (A-z, 0-9) characters!"
-            return render_template("register.html", message=message)
+            return render_template("register.html",
+                message=message,
+            )
 
         pw = generate_password_hash(password)
 
         try:
             con, cur = database()
-            user = cur.execute(
-                "INSERT INTO users (name, username, hash) VALUES (?, ?, ?)",
+            user = cur.execute("INSERT INTO users (name, username, hash) VALUES (?, ?, ?)",
                 (name,
-                 username,
-                 pw)
+                username,
+                pw)
             )
             con.commit()
             con.close()
@@ -400,17 +376,20 @@ def register():
             return redirect("/")
         except:
             message = "Username has been taken. Please pick a different username!"
-            return render_template("register.html", message=message)
+            return render_template("register.html",
+                message=message,
+            )
 
     else:
         return render_template("register.html")
 
 
-@ app.route("/settings", methods=["GET", "POST"])
+@app.route("/settings", methods=["GET", "POST"])
 def settings():
     con, cur = database()
     row = cur.execute("SELECT * FROM users WHERE id = ?",
-                      (session["user_id"],))
+        (session["user_id"],)
+    )
     row = row.fetchall()
     currentname = row[0][1]
     currentusername = row[0][2]
@@ -418,30 +397,28 @@ def settings():
     if request.method == "GET":
         # Return message1 so the "Edit Name" tab is set to active when user reach route via get
         message1 = " "
-        return render_template(
-            "settings.html",
+        return render_template("settings.html",
             row=row,
             currentname=currentname,
             currentusername=currentusername,
-            message1=message1
+            message1=message1,
         )
     else:
         # Edit name
         name = request.form.get("change_name").strip()
         if name:
-            cur.execute(
-                "UPDATE users SET name = ? WHERE id = ?", (
-                    name, session["user_id"])
+            cur.execute("UPDATE users SET name = ? WHERE id = ?",
+                (name,
+                session["user_id"])
             )
             con.commit()
             currentname = name
             message1 = "Name has successfully changed!"
-            return render_template(
-                "settings.html",
+            return render_template("settings.html",
                 row=row,
                 message1=message1,
                 currentname=currentname,
-                currentusername=currentusername
+                currentusername=currentusername,
             )
 
         # Change username
@@ -449,37 +426,33 @@ def settings():
         if username:
             if len(username) < 4 or not username.isalnum():
                 message2 = "Username should be a minimum of four alphanumeric (A-z, 0-9) characters!"
-                return render_template(
-                    "settings.html",
+                return render_template("settings.html",
                     row=row,
                     message2=message2,
                     currentname=currentname,
-                    currentusername=currentusername
+                    currentusername=currentusername,
                 )
             try:
-                cur.execute(
-                    "UPDATE users SET username = ? WHERE id = ?",
+                cur.execute("UPDATE users SET username = ? WHERE id = ?",
                     (username,
-                     session["user_id"])
+                    session["user_id"])
                 )
                 con.commit()
                 currentusername = username
             except:
                 message2 = "Username has been taken. Please pick a different username!"
-                return render_template(
-                    "settings.html",
+                return render_template("settings.html",
                     row=row,
                     message2=message2,
                     currentusername=currentusername,
-                    currentname=currentname
+                    currentname=currentname,
                 )
             message2 = "Username has successfully changed!"
-            return render_template(
-                "settings.html",
+            return render_template("settings.html",
                 row=row,
                 message2=message2,
                 currentusername=currentusername,
-                currentname=currentname
+                currentname=currentname,
             )
 
         # Change password
@@ -491,40 +464,36 @@ def settings():
         if currentpassword and newpassword and confirmpassword:
             if len(newpassword) < 8:
                 message3 = "Password should be a minimum of eight characters!"
-                return render_template(
-                    "settings.html",
+                return render_template("settings.html",
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname
+                    currentname=currentname,
                 )
             # Syntax: check_password_hash(pwhashed, pwplaintext)
             if not check_password_hash(row[0][3], currentpassword):
                 message3 = "Current password is incorrect!"
-                return render_template(
-                    "settings.html",
+                return render_template("settings.html",
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname
+                    currentname=currentname,
                 )
             if not check_password_hash(password, confirmpassword):
                 message3 = "New password and confirmation don't match!"
-                return render_template(
-                    "settings.html",
+                return render_template("settings.html",
                     row=row,
                     message3=message3,
                     currentusername=currentusername,
-                    currentname=currentname
+                    currentname=currentname,
                 )
-            cur.execute(
-                "UPDATE users SET hash = ? WHERE id = ?", (
-                    password, session["user_id"])
+            cur.execute("UPDATE users SET hash = ? WHERE id = ?", 
+                (password, 
+                session["user_id"])
             )
             con.commit()
             message3 = "Password has successfully changed!"
-            return render_template(
-                "settings.html",
+            return render_template("settings.html",
                 row=row,
                 message3=message3,
                 currentusername=currentusername,
@@ -536,7 +505,7 @@ def settings():
         return redirect("/")
 
 
-@ app.route("/logout")
+@app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
