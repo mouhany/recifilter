@@ -6,16 +6,39 @@
     font-style: var(--black);
 }
 
-.montserrat{
-    font-family: "Montserrat", sans-serif;
+
+:root {
+    --green: #96a535;
+    --orange: #e16f29;
+    --yellow: #ebad39;
+    --beige: #ede3d3;
+    --black: #141402;
+    --white: 245, 245, 245;
+    --maintransition: all 0.3s linear;
+    --gradient: linear-gradient(60deg, rgba(233, 174, 5, 1) 15%, rgba(221, 114, 15, 1) 50%, rgba(152, 166, 12, 1) 85%);
 }
 
+
+/* Custom Fonts */
 .playfair{
     font-family: playfair-display, serif;
     font-weight: 900;
     font-style: normal;
 }
 
+.noto {
+    font-family: 'Noto Emoji';
+}
+
+
+/* Title size */
+nav .navbar-brand {
+    font-size: xxx-large;
+    font-weight: 700;
+}
+
+
+/* Font Weights */
 .fw-3{
     font-weight: 300;
 }
@@ -36,17 +59,8 @@
     font-weight: 700;
 }
 
-:root {
-    --green: #96a535;
-    --orange: #e16f29;
-    --yellow: #ebad39;
-    --beige: #ede3d3;
-    --black: #141402;
-    --white: 245, 245, 245;
-    --maintransition: all 0.3s linear;
-    --gradient: linear-gradient(60deg, rgba(233, 174, 5, 1) 15%, rgba(221, 114, 15, 1) 50%, rgba(152, 166, 12, 1) 85%);
-}
 
+/* Input fields */
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -70,7 +84,8 @@ input[type="color"]:focus,
     transition: var(--maintransition);
 }
 
-/* Carousel */
+
+/* Carousel images */
 .carousel {
     width: 25rem;
     height: 25rem;
@@ -79,69 +94,92 @@ input[type="color"]:focus,
     transition: var(--maintransition);
 }
 
-/* Background form*/
+
+/* Background form */
 .form, .active {
     background-color: rgba(var(--white), 0.85)!important;
     border-radius: 0.25rem;
     border: 0!important;
-    /*box-shadow: 0px 10px 10px 0px rgba(47, 47, 47, 0.075);*/
 }
+
 
 /* Links */
 a {
     color: var(--orange)!important;
     text-decoration: none!important;
 }
+
 a:hover,
 a:active {
     color: var(--yellow) !important;
     transition: var(--maintransition) !important;
 }
 
-.footer:hover,
-.footer:active{
-    opacity: 0.7;
-    transition: var(--maintransition)!important;
-}
 
-/* Buttons and Span*/
-.abutton,
-button,
-.field span,
-input[type="submit"] {
-    background-color:#96a535 !important;
-    border: none!important;
-    outline: none!important;
-    box-shadow: none!important;
-}
-
+/* BUTTON / SUBMIT */
+/* On hover and active */
 .yellow,
+.yellow:hover,
 .yellow:active,
-.yellow:hover{
-    background-color: var(--yellow) !important;
-}
-
-.yellow:active,
-.yellow:hover{
-    opacity: 0.7;
-    transition: var(--maintransition);
-}
-
-.abutton:hover, 
-.abutton:active,
+button,
 button:hover,
 button:active,
+.field span,
 .field span:hover,
 .field span:active,
+input[type="submit"],
 input[type="submit"]:hover,
 input[type="submit"]:active{
-    opacity: 0.7;
-    transition: var(--maintransition);
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
 }
 
+/* Opacity on default */
+.yellow,
+button,
+.field span,
+input[type="submit"] {
+    opacity: 1;
+}
+
+/* Opacity on hover and active */
+.yellow:hover,
+.yellow:active,
+button:hover,
+button:active,
+.field span:hover,
+.field span:active,
+input[type="submit"]:hover,
+input[type="submit"]:active,
+.footer:hover,
+.footer:active{
+    transition: var(--maintransition) !important;
+    opacity: 0.7;
+}
+
+/* Yellow button (external links) */
+.yellow,
+.yellow:hover,
+.yellow:active{
+    background-color: var(--yellow) !important;
+}
+
+/* Green button (default) */
+button,
+button:hover,
+button:active,
+.field span,
+.field span:hover,
+.field span:active,
+input[type="submit"],
+input[type="submit"]:hover,
+input[type="submit"]:active{
+    background-color: var(--green) !important;
+}
+
+
+/* + or - ingredients in index.html */
 .field span:last-child {
     display: none;
 }
@@ -150,11 +188,6 @@ input[type="submit"]:active{
     display: flex;
 }
 
-/* Size for brand */
-nav .navbar-brand {
-    font-size: xxx-large;
-    font-weight: 700;
-}
 
 /* Waving hand emoji css from: https: //jarv.is/notes/css-waving-hand-emoji/*/
 .wave{
@@ -163,6 +196,7 @@ nav .navbar-brand {
     transform-origin: 70% 70%;
     display: inline-block;
 }
+
 @keyframes wave-animation {
     0% {
         transform: rotate(0.0deg)
@@ -190,14 +224,14 @@ nav .navbar-brand {
     }
 }
 
-.noto{
-    font-family: 'Noto Emoji';
-}
 
+/* Hide */
 .hide{
     display: none;
 }
 
+
+/* Back to top */
 #btn-back-to-top {
     position: fixed;
     bottom: 20px;
