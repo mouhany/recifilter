@@ -5,7 +5,7 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from curses.ascii import isalnum
 
-from helpers import login_required, database, split_dict, lookup, readable_list
+from helpers import login_required, database, split_dict, stringify, lookup, readable_list
 
 
 # From CS50 pset9 Finance #######################################################
@@ -184,32 +184,13 @@ def result():
     # Make ingredients readable for result page's headline
     readable_ingredients = readable_list(ingredients_list)
 
-    dish_list = request.args.getlist("dishType")
-    dish_Array = []
-    for d in dish_list:
-        dish_Array.append("&dishType=" + d)
-    dishType = "".join(dish_Array)
+    dishType = stringify("dishType", "&dishType=")
+    dietLabels = stringify("dietLabels", "&diet=")
+    healthLabels = stringify("healthLabels", "&health=")
+    cuisineType = stringify("cuisineType", "&cuisineType=")
     
-    diet_list = request.args.getlist("dietLabels")
-    diet_Array = []
-    for d in diet_list:
-        diet_Array.append("&diet=" + d)
-    dietLabels = "".join(diet_Array)
-    
-    health_list = request.args.getlist("healthLabels")
-    health_Array = []
-    for h in health_list:
-        health_Array.append("&health=" + h)
-    healthLabels = "".join(health_Array)
-    
-    cuisine_list = request.args.getlist("cuisineType")
-    cuisine_Array = []
-    for c in cuisine_list:
-        cuisine_Array.append("&cuisineType=" + c)
-    cuisineType = "".join(cuisine_Array)
-
     # Concat all parameters
-    param = "".join(ingredients + dishType + dietLabels + healthLabels + cuisineType)
+    param = "".join(ingredients + dishType[1] + dietLabels[1] + healthLabels[1] + cuisineType[1])
 
     # Make API request
     recipes_list = lookup(param)
@@ -224,10 +205,10 @@ def result():
     return render_template("result.html",
         readable_ingredients=readable_ingredients,
         recipes_list=recipes_list,
-        dish_list=dish_list,
-        diet_list=diet_list,
-        health_list=health_list,
-        cuisine_list=cuisine_list,
+        dish_list=dishType[0],
+        diet_list=dietLabels[0],
+        health_list=healthLabels[0],
+        cuisine_list=cuisineType[0],
         saved_recipes_link=saved_recipes_link,
         dishtype=dishtype,
     )

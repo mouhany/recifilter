@@ -3,7 +3,7 @@ import requests
 import sqlite3
 import numpy as np
 
-from flask import redirect, session
+from flask import redirect, session, request
 from functools import wraps
 from typing import Any, List
 
@@ -41,7 +41,15 @@ def split_dict(dct, sections):
         sec_i = split_lst[i]
         splitted.append(dict(sec_i))
     return splitted
-    
+
+def stringify(list_name, string):
+    list = request.args.getlist(list_name)
+    arr = []
+    for l in list:
+        arr.append(string + l)
+    stringified = "".join(arr)
+    return list, stringified
+        
     
 def lookup(param):
     try:
