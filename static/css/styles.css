@@ -6,7 +6,6 @@
     font-style: var(--black);
 }
 
-
 :root {
     --green: #96a535;
     --orange: #e16f29;
@@ -19,11 +18,10 @@
 }
 
 
-/* Custom Fonts */
+
+/* Custom fonts */
 .playfair{
     font-family: playfair-display, serif;
-    font-weight: 900;
-    font-style: normal;
 }
 
 .noto {
@@ -31,14 +29,16 @@
 }
 
 
-/* Title size */
+
+/* Title */
 nav .navbar-brand {
     font-size: xxx-large;
-    font-weight: 700;
+    font-weight: 900;
 }
 
 
-/* Font Weights */
+
+/* Font weights */
 .fw-3{
     font-weight: 300;
 }
@@ -60,7 +60,8 @@ nav .navbar-brand {
 }
 
 
-/* Input fields */
+
+/* Input fields (hover/focus) */
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -76,13 +77,41 @@ input[type="email"]:focus,
 input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
-input[type="color"]:focus,
-.uneditable-input:focus {
+input[type="checkbox"]:hover,
+input[type="color"]:focus {
     border-color: rgba(20, 20, 2, 0.1);
     box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2);
     outline: none;
     transition: var(--maintransition);
 }
+
+
+
+/* Checkboxes */
+label {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--green);
+    outline: none;
+    border: none;
+    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2);
+}
+
+input:hover+label {
+    opacity: 0.8;
+    transition: var(--maintransition);
+}
+
+
+input:checked+label {
+    font-weight: 500;
+    opacity: 1;
+    transition: var(--maintransition);
+}
+
 
 
 /* Carousel images */
@@ -95,12 +124,14 @@ input[type="color"]:focus,
 }
 
 
-/* Background form */
+
+/* Off white background */
 .form, .active {
     background-color: rgba(var(--white), 0.85)!important;
     border-radius: 0.25rem;
     border: 0!important;
 }
+
 
 
 /* Links */
@@ -114,6 +145,7 @@ a:active {
     color: var(--yellow) !important;
     transition: var(--maintransition) !important;
 }
+
 
 
 /* BUTTON / SUBMIT */
@@ -179,6 +211,7 @@ input[type="submit"]:active{
 }
 
 
+
 /* + or - ingredients in index.html */
 .field span:last-child {
     display: none;
@@ -187,6 +220,7 @@ input[type="submit"]:active{
 .field {
     display: flex;
 }
+
 
 
 /* Waving hand emoji css from: https: //jarv.is/notes/css-waving-hand-emoji/*/
@@ -225,10 +259,12 @@ input[type="submit"]:active{
 }
 
 
+
 /* Hide */
 .hide{
     display: none;
 }
+
 
 
 /* Back to top */
