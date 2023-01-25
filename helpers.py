@@ -42,6 +42,7 @@ def split_dict(dct, sections):
         splitted.append(dict(sec_i))
     return splitted
 
+
 def stringify(list_name, string):
     list = request.args.getlist(list_name)
     arr = []
