@@ -18,6 +18,11 @@
 }
 
 
+::selection {
+    color: white;
+    background: var(--green);
+}
+
 
 /* Custom fonts */
 .playfair{
@@ -78,6 +83,7 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="checkbox"]:hover,
+input[type="radio"]:hover,
 input[type="color"]:focus {
     border-color: rgba(20, 20, 2, 0.1);
     box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2);
@@ -87,17 +93,18 @@ input[type="color"]:focus {
 
 
 
-/* Checkboxes */
+/* Checkboxes & Radio */
 label {
     cursor: pointer;
     opacity: 0.6;
 }
 
-input[type="checkbox"]:checked {
-    background-color: var(--green);
-    outline: none;
-    border: none;
-    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2);
+input[type="checkbox"]:checked,
+input[type="radio"]:checked {
+    background-color: var(--green)!important;
+    outline: none!important;
+    border: none!important;
+    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2)!important;
 }
 
 input:hover+label {

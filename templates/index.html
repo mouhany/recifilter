@@ -34,11 +34,33 @@
                     <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
                         {% for dish in dishtype %}
                         <div class="form-check px-4 py-1">
-                            <input class="border-0 form-check-input" type="checkbox" name="dishType" value="{{ dish }}"
+                            <input class="border-0 form-check-input" type="radio" name="dishType" value="{{ dish }}"
                                 id="{{ dish }}">
                             <label class="form-check-label" for="{{ dish }}">{{ dishtype[dish] }}</label>
                         </div>
                         {% endfor%}
+                    </div>
+                </div>
+            </div>
+            <!-- Cuisine Type Labels  -->
+            <div class="mb-5" id="cuisineTypeWrapper">
+                <p class="fw-normal" style="text-align: left!important;">Cuisine Type<span
+                        class="ms-1 small text-muted">(optional)</span>
+                    <a href="javascript:void(0)" id="cuisine" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
+                </p>
+                <div id="cuisineListWrapper" class="hide">
+                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
+                        {% for i in range(0, len_ct) %}
+                        <div class="flex-column">
+                            {% for cuisine in ct[i]|sort %}
+                            <div class="form-check px-4 py-1">
+                                <input class="border-0 form-check-input" type="radio" name="cuisineType" value="{{ cuisine }}"
+                                    id="{{ cuisine }}.{{ loop.index }}">
+                                <label class="form-check-label" for="{{ cuisine }}.{{ loop.index }}">{{ ct[i][cuisine] }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -71,26 +93,6 @@
                                 <div class="form-check px-4 py-1">
                                     <input class="border-0 form-check-input" type="checkbox" name="healthLabels" value="{{ health }}" id="{{ health }}.{{loop.index}}">
                                     <label class="form-check-label" for="{{ health }}.{{loop.index}}">{{ hl[i][health] }}</label>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            <!-- Cuisine Type Labels  -->
-            <div class="mb-5" id="cuisineTypeWrapper">
-                <p class="fw-normal" style="text-align: left!important;">Cuisine Type<span class="ms-1 small text-muted">(optional)</span>
-                    <a href="javascript:void(0)" id="cuisine" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
-                </p>
-                <div id="cuisineListWrapper" class="hide">
-                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
-                        {% for i in range(0, len_ct) %}
-                            <div class="flex-column">
-                                {% for cuisine in ct[i]|sort %}
-                                <div class="form-check px-4 py-1">
-                                    <input class="border-0 form-check-input" type="checkbox" name="cuisineType" value="{{ cuisine }}" id="{{ cuisine }}.{{ loop.index }}">
-                                    <label class="form-check-label" for="{{ cuisine }}.{{ loop.index }}">{{ ct[i][cuisine] }}</label>
                                 </div>
                                 {% endfor %}
                             </div>
