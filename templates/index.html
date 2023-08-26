@@ -18,7 +18,7 @@
             <!-- Ingredients -->
             <div class="mb-5" id="ingredientsWrapper">
                 <p class="fw-normal" style="text-align: left!important;">Enter the first query or ingredient before adding more.</p>
-                <div class="px-5 field mb-3">
+                <div class="px-lg-5 px-sm-0 field mb-3">
                     <input type="text" class="border-0 me-2 form-control form-control-sm" name="ingredients" id="ingredients" 
                         placeholder="Enter query or ingredient" autofocus />
                     <span onclick="addField(this)" class=" btn px-3 btn-primary">+</span>
@@ -31,9 +31,9 @@
                     <a href="javascript:void(0)" id="dish" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
                 </p>
                 <div id="dishListWrapper" class="hide">
-                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
+                    <div class="px-lg-5 px-sm-0 small d-lg-flex d-md-block flex-wrap justify-content-between mb-5">
                         {% for dish in dishtype %}
-                        <div class="form-check px-4 py-1">
+                        <div class="form-check px-4 py-1 rd">
                             <input class="border-0 form-check-input" type="radio" name="dishType" value="{{ dish }}"
                                 id="{{ dish }}">
                             <label class="form-check-label" for="{{ dish }}">{{ dishtype[dish] }}</label>
@@ -49,11 +49,11 @@
                     <a href="javascript:void(0)" id="cuisine" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
                 </p>
                 <div id="cuisineListWrapper" class="hide">
-                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
+                    <div class="px-lg-5 px-sm-0 small d-lg-flex d-md-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
                         {% for i in range(0, len_ct) %}
                         <div class="flex-column">
                             {% for cuisine in ct[i]|sort %}
-                            <div class="form-check px-4 py-1">
+                            <div class="form-check px-4 py-1 rd">
                                 <input class="border-0 form-check-input" type="radio" name="cuisineType" value="{{ cuisine }}"
                                     id="{{ cuisine }}.{{ loop.index }}">
                                 <label class="form-check-label" for="{{ cuisine }}.{{ loop.index }}">{{ ct[i][cuisine] }}</label>
@@ -70,7 +70,7 @@
                     <a href="javascript:void(0)" id="diet" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
                 </p>
                 <div id="dietListWrapper" class="hide">
-                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5">
+                    <div class="px-lg-5 px-sm-0 small d-lg-flex d-md-block flex-wrap justify-content-between mb-5">
                         {% for diet in dietlabels|sort %}
                             <div class="form-check px-4 py-1">
                                 <input class="border-0 form-check-input" type="checkbox" name="dietLabels" value="{{ diet }}" id="{{ diet }}">
@@ -86,7 +86,7 @@
                     <a href="javascript:void(0)" id="health" class="toggler small text-muted ms-2 bi bi-chevron-down"></a>
                 </p>
                 <div id="healthListWrapper" class="hide">
-                    <div class="px-5 small d-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
+                    <div class="px-lg-5 px-sm-0 small d-lg-flex d-md-flex flex-wrap justify-content-between mb-5" style="text-align: left!important;">
                         {% for i in range(0, len_hl) %}
                             <div class="flex-column">
                                 {% for health in hl[i]|sort %}
@@ -102,7 +102,7 @@
             </div>
             <!-- Submit -->
             <div class="text-center">
-                <input type="submit" id="search" value="Show Recipes" class="px-5 py-3 btn btn-primary"/>
+                <input type="submit" id="search" value="Show Recipes" class="px-5 btn btn-primary"/>
             </div>
         </form>
     </div>
