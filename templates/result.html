@@ -20,7 +20,7 @@
     {% endif %}
 
     <!-- Result -->
-    <div class="form px-2 py-5">
+    <div class="form p-5">
         <!-- Handle error -->
         {% if not recipes_list %}
         <div class="text-center">
@@ -75,13 +75,13 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <!-- Modal body -->
-                            <div class="modal-body p-5">
+                            <div class="modal-body py-5 px-lg-5 px-sm-4">
                                 <!-- Visible -->
                                 <div class="row mb-3">
                                     <!-- Image, Total Time, & Calories -->
-                                    <div class="col-auto px-4">
+                                    <div class="col px-4">
                                         <!-- Image -->
-                                        <div class="mb-3">
+                                        <div class="mb-3 d-flex justify-content-center">
                                             <img src="{{ recipe['image'] }}" alt="{{ recipe['label'] }}">
                                         </div>
                                         <!-- Total Time and Calories -->
