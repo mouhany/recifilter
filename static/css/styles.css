@@ -25,7 +25,7 @@
 
 
 /* Custom fonts */
-.playfair{
+.playfair {
     font-family: playfair-display, serif;
 }
 
@@ -42,29 +42,34 @@ nav .navbar-brand {
 }
 
 
-
 /* Font weights */
-.fw-3{
+.fw-3 {
     font-weight: 300;
 }
 
-.fw-4{
+.fw-4 {
     font-weight: 400;
 }
 
-.fw-5{
+.fw-5 {
     font-weight: 500;
 }
 
-.fw-6{
+.fw-6 {
     font-weight: 600;
 }
 
-.fw-7{
+.fw-7 {
     font-weight: 700;
 }
 
+.fw-900 {
+    font-weight: 900;
+}
 
+.front {
+    z-index: 1051;
+}
 
 /* Input fields (hover/focus) */
 textarea:focus,
@@ -101,10 +106,10 @@ label {
 
 input[type="checkbox"]:checked,
 input[type="radio"]:checked {
-    background-color: var(--green)!important;
-    outline: none!important;
-    border: none!important;
-    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2)!important;
+    background-color: var(--green) !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: 0 1px 1px rgba(20, 20, 2, 0.075) inset, 0 0 8px rgba(20, 20, 2, 0.2) !important;
 }
 
 input:hover+label {
@@ -133,18 +138,19 @@ input:checked+label {
 
 
 /* Off white background */
-.form, .active {
-    background-color: rgba(var(--white), 0.85)!important;
+.bg-off-white,
+.active {
+    background-color: rgba(var(--white), 0.85) !important;
     border-radius: 0.25rem;
-    border: 0!important;
+    border: 0 !important;
 }
 
 
 
 /* Links */
 a {
-    color: var(--orange)!important;
-    text-decoration: none!important;
+    color: var(--orange) !important;
+    text-decoration: none !important;
 }
 
 a:hover,
@@ -168,7 +174,7 @@ button:active,
 .field span:active,
 input[type="submit"],
 input[type="submit"]:hover,
-input[type="submit"]:active{
+input[type="submit"]:active {
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
@@ -192,7 +198,7 @@ button:active,
 input[type="submit"]:hover,
 input[type="submit"]:active,
 .footer:hover,
-.footer:active{
+.footer:active {
     transition: var(--maintransition) !important;
     opacity: 0.7;
 }
@@ -200,7 +206,7 @@ input[type="submit"]:active,
 /* Yellow button (external links) */
 .yellow,
 .yellow:hover,
-.yellow:active{
+.yellow:active {
     background-color: var(--yellow) !important;
 }
 
@@ -213,7 +219,7 @@ button:active,
 .field span:active,
 input[type="submit"],
 input[type="submit"]:hover,
-input[type="submit"]:active{
+input[type="submit"]:active {
     background-color: var(--green) !important;
 }
 
@@ -231,7 +237,7 @@ input[type="submit"]:active{
 
 
 /* Waving hand emoji css from: https: //jarv.is/notes/css-waving-hand-emoji/*/
-.wave{
+.wave {
     animation-name: wave-animation;
     animation-duration: 2.5s;
     transform-origin: 70% 70%;
@@ -242,24 +248,31 @@ input[type="submit"]:active{
     0% {
         transform: rotate(0.0deg)
     }
+
     10% {
         transform: rotate(14.0deg)
     }
+
     20% {
         transform: rotate(-8.0deg)
     }
+
     30% {
         transform: rotate(14.0deg)
     }
+
     40% {
         transform: rotate(-4.0deg)
     }
+
     50% {
         transform: rotate(10.0deg)
     }
+
     60% {
         transform: rotate(0.0deg)
     }
+
     100% {
         transform: rotate(0.0deg)
     }
@@ -268,7 +281,7 @@ input[type="submit"]:active{
 
 
 /* Hide */
-.hide{
+.hide {
     display: none;
 }
 
